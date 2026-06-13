@@ -1,0 +1,14 @@
+Nome do Campo,Descrição Completa
+ID_Transacao,Identificador único da transação.
+Data,Data e hora em que a transação foi realizada.
+Valor_Compra,Valor monetário da compra realizada.
+Industria,"Setor da indústria onde a compra foi realizada (ex: Alimentação, Varejo, Saúde)."
+Tipo_Compra,Tipo de compra: CP (Cartão Presente - Presencial) ou CNP (Cartão Não Presente - não presencial/online).
+Qtd_Parcelas,"Quantidade de parcelas da compra, se aplicável."
+Wallet,"Carteira digital utilizada na transação (ex: Apple Pay, Google Pay, Samsung Pay)."
+Cliente_ID,Identificador único do cliente que realizou a transação.
+ID_Cartao,Identificador único do cartão utilizado na transação.
+Input_Mode,"Modo de entrada da transação (ex: Chip, Swiped, PayPass, eCommerce)."
+Input_Mode_Code,Código associado ao modo de entrada.
+Crossborder,Indica se a transação foi internacional - crossborder (1 = Transação Internacional; 0 = Transação Nacional).
+Contactless,Indica se a transação foi realizada por aproximação (1 = Uso Contactless; 0 = Não utilizou Contacless).
