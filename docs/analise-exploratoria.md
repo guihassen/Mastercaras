@@ -685,6 +685,115 @@ A análise de faixa etária revela **três dimensões do problema**:
 
 3. **Aceleração:** O crescimento de Q3→Q4 2025 é robusto em todas as faixas, sinalizando que a janela de intervenção está se fechando. O Priceless Bank precisa agir antes que o padrão de preferência por PIX se consolide irreversivelmente.
 
+### 9.4 Análise de Churn — Diagnóstico de Risco de Abandono
+
+Churn em banco emissor tem **cinco manifestações distintas**. Os dados suportam a quantificação direta de quatro delas:
+
+#### Taxonomia dos Cenários
+
+| Tipo | Nome | Evidência | Urgência |
+|------|------|-----------|---------|
+| **A** | Churn Silencioso (PIX) | Volume cartão -75%, PIX→PJ +470% em 2025 | 🔴 Crítica |
+| **B** | Conta Fantasma | 85 clientes sem registro em nenhuma base | 🟠 Alta |
+| **C** | Inatividade 2025 | 87 clientes sem atividade alguma em 2025 | 🔴 Alta |
+| **D** | Desinvestimento | Resgates acelerando — 2025Q4 recorde histórico | 🟡 Antecipada |
+| **E** | Cartão Vencido | 1.018 cartões expirados, 56% premium | 🟠 Estrutural |
+
+> **Limitação metodológica:** Os dados de PIX de 2025 cobrem apenas Q3 e Q4. O score de risco usa critérios de cartão e investimentos para evitar falsos positivos causados por essa lacuna.
+
+#### [A] Churn Silencioso — PIX Substitui Cartão
+
+Já documentado nas seções 9 e 9.2. Resumo dos indicadores-chave:
+- Volume de cartão caiu de R$23,4M (2024Q4) para R$5,9M (2025Q4): **-75%**
+- PIX→PJ no mesmo período: de R$3,3M para R$19,9M: **+470%**
+- Em 2025Q4, o volume PIX→PJ supera o volume de cartão em **3,4×**
+- **Motivação:** LuminaPay oferece "PIX no crédito" — o cliente faz PIX e parcela como cartão. O Priceless Bank não tem equivalente.
+
+#### [B] Contas Fantasma
+
+| Métrica | Valor |
+|---------|-------|
+| Clientes sem nenhuma atividade histórica | **85 (4,3%)** |
+| Distribuição etária | 40-49: 20 · 50-59: 25 · 60-69: 18 · demais: 22 |
+| Antiguidade média | 26 meses |
+| Renda média | R$ 86.917 |
+| Período de abertura | Jan/2023 – Dez/2025 |
+
+**Motivação provável:** Falha crítica de onboarding. O cliente abriu a conta — possivelmente atraído por uma campanha — mas o produto não entregou valor suficiente para gerar a primeira transação. Em 26 meses, nunca fez um PIX, nunca usou o cartão, nunca investiu. Esse padrão é típico de bancos sem experiência digital fluida na jornada de ativação.
+
+#### [C] Inatividade em 2025
+
+| Métrica | Valor |
+|---------|-------|
+| Clientes inativos em 2025 (sem tx/PIX/inv) | **87 (4,4%)** |
+| Antiguidade média | 27 meses |
+| Renda média | R$ 86.245 |
+
+Sub-cenários dentro dos 87 inativos:
+
+| Sub-cenário | Clientes | Motivação provável |
+|-------------|---------|-------------------|
+| C.1 – Pararam cartão, ainda usam PIX | alguns | Migração funcional — PIX atende a necessidade diária |
+| C.2 – Desapareceram completamente | alguns | Migração para banco concorrente |
+| C.3 – Sumiram entre Q3→Q4 2025 | **39** | Deterioração recente — janela de intervenção ainda aberta |
+
+**Concentração etária:** Faixas 50-59 (25) e 40-49 (20) — exatamente o público-alvo do Papaya Bank, que está crescendo. Hipótese: esses clientes migraram para o Papaya Bank ou estão em processo de abandono gradual.
+
+**Alerta específico sobre Q3→Q4 2025:** 39 clientes usaram o cartão em Q3 mas não em Q4. A queda não é de ticket (mediana estável em R$597-598) mas de **frequência** (-25% em transações). Os clientes estão fazendo menos compras pelo cartão, não compras menores.
+
+#### [D] Desinvestimento Acelerado
+
+| Trimestre | Operações de Resgate | Volume Resgatado |
+|-----------|---------------------|-----------------|
+| 2023Q1–Q4 | 23–36/tri | ~R$ 25k/tri |
+| 2024Q1 | 138 | R$ 677k |
+| 2024Q2 | 154 | R$ 614k |
+| 2024Q3 | 208 | R$ 1.302k |
+| 2024Q4 | 210 | R$ 1.210k |
+| 2025Q1 | 98 | R$ 862k |
+| 2025Q2 | 105 | R$ 681k |
+| 2025Q3 | 243 | R$ 1.593k |
+| **2025Q4** | **284** | **R$ 1.632k ← RECORDE** |
+
+**161 clientes** tiveram saldo líquido negativo em investimentos em 2025 (mais resgates do que aportes).
+
+**Motivação provável:** Rentabilidade dos produtos de investimento inferior à concorrência. O Aurora Bank, que quase dobrou seu market share em 2025, tem como diferencial "produtos de investimentos exclusivos" e Home Broker. Clientes com perfil investidor tendem a comparar rentabilidade ativamente e mover o dinheiro para onde rende mais. A Reservinha (liquidez diária) é o produto mais popular do Priceless Bank — pode estar perdendo para equivalentes com maior rendimento.
+
+#### [E] Cartões Vencidos Sem Renovação
+
+| Produto | Cartões vencidos |
+|---------|----------------|
+| Platinum | 340 (33%) |
+| Black | 241 (24%) |
+| Gold | 195 (19%) |
+| Maestro/Debit | 159 (16%) |
+| Standard | 83 (8%) |
+| **Total** | **1.018 (28,5% do portfólio válido)** |
+
+Desses 1.018, apenas 4 nunca tiveram transação — a grande maioria estava em uso ativo até meados de 2025. O vencimento do cartão é um **momento de decisão**: o cliente precisa solicitar a renovação ativamente, e se o banco não facilita o processo ou não oferece incentivo, a probabilidade de churn aumenta drasticamente.
+
+**Motivação provável:** Ausência de renovação automática ou de contato proativo do banco na aproximação do vencimento. Com 56% de cartões premium (Platinum + Black) na lista, o risco financeiro é alto — esses clientes têm limites de R$15k–52k.
+
+#### Score de Risco Consolidado
+
+| Nível | Clientes | Características |
+|-------|---------|----------------|
+| Baixo | ~884 | Ativos em Q3 e Q4 2025, sem resgates |
+| Médio | ~32 | Algum sinal de fraqueza recente |
+| Alto | ~533 | Sem cartão nos últimos trimestres + outros sinais |
+
+**Achado sobre antiguidade:** O score alto não se concentra nos clientes mais novos — a relação entre antiguidade e risco é fraca. Clientes com 2-3 anos de conta aparecem em todas as faixas de risco, o que indica que o problema não é de retenção de recém-chegados, mas de **proposta de valor insuficiente para toda a base**.
+
+#### Síntese — O Que os Dados Revelam Sobre as Motivações
+
+| Motivação | Cenário | Evidência nos dados |
+|-----------|---------|-------------------|
+| Substituto funcional (PIX é mais fácil) | A | PIX→PJ 3,4× o cartão em Q4 2025 |
+| Onboarding falho | B | 85 clientes, 26 meses de conta, zero atividade |
+| Migração para concorrente | C | 87 inativos em 2025, perfil = público Papaya/LuminaPay |
+| Rentabilidade de investimentos inferior | D | Resgates recordes em Q4 2025, Aurora crescendo |
+| Falta de gestão de vencimento | E | 1.018 cartões expirados sem renovação registrada |
+
 ---
 
 ## 10. Radar de Qualidade dos Dados — Pegadinhas
