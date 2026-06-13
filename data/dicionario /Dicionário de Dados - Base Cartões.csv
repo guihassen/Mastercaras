@@ -1,0 +1,8 @@
+Nome do Campo,Descrição Completa
+ID_Cartao,Identificador único do cartão.
+Produto_Mastercard,"Categoria/Variante do cartão Mastercard (ex: Gold, Platinum, Black, Maestro/Debit, Standard)."
+Tipo_Cartao,"Tipo de cartão, podendo ser Crédito ou Débito."
+Data_Emissao,Data e hora em que o cartão foi emitido.
+Data_Ativacao,Data e hora em que o cartão foi ativado.
+Data_Validade,Data de validade do cartão.
+Limite_Cartao,Limite de crédito concedido no cartão (Em Reais).

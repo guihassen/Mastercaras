@@ -1,0 +1,8 @@
+Nome do Campo,Descrição Completa
+Cliente_ID,Identificador único do cliente que realizou a operação na conta de investimento.
+Data_Abertura_Conta_Inv,Data de abertura da conta de investimento.
+Data,Data em que a operação de investimento foi realizada.
+Valor_Aplicado,Valor monetário da operação de investimento realizada.
+Saldo_Atual,Valor monetário que o produto de investimento apresenta na Data analisada.
+Produto_Investimento,Nome do produto de investimento.
+Data_de_vencimento,Data de vencimento do produto de investimento.

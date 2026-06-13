@@ -1,0 +1,9 @@
+Nome do Campo,Descrição Completa
+Cliente_ID,Identificador único do cliente.
+Data_Nascimento,Data de nascimento do cliente 
+Renda_Anual,Renda anual informada pelo cliente (Em Reais).
+Data_Criacao_Conta,Data de criação da conta do cliente.
+Numero_Cartoes,Número total de cartões que o cliente possui.
+Cidade,Cidade de residência do cliente.
+Estado,Estado de residência do cliente.
+Possui_Conta_Adicional,Flag indicador se o cliente possui uma conta adicional (Sim = Possui; Não = Não Possui).

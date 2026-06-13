@@ -1,0 +1,9 @@
+Nome do Campo,Descrição Completa
+Cliente_ID,Identificador único do cliente que realizou a transação.
+Valor,Valor monetário da PIX realizado.
+Data,Data e hora em que o PIX foi realizado.
+Pix_para_si_mesmo,Indica se a transferência Pix realizada entre contas de mesma titularidade (1 = Sim; 0 = Não).
+Tipo_transacao,"Indica se o PIX foi um ""Envio"" ou um ""Recebimento""."
+Aprovado,Indica se o PIX foi aprovado (1 = Sim; 0 = Não).
+PF_PJ,"Mostra se o destinatário do PIX é uma conta ""PF"" ou ""PJ""."
+Agendado,"Indica se o PIX foi agendado ou não (""Sim"" = agendado; ""Não"" = Não foi agendado)."
