@@ -529,6 +529,68 @@ A razão PIX/Cartão (em quantidade de transações) cresce consistentemente ao 
 
 **Nota metodológica importante:** A queda no número de transações de 2025 pode ser parcialmente explicada pelo fato de os dados de 2025 serem mais recentes e incompletos, mas a magnitude da inversão é demasiado expressiva para ser apenas um artefato de dados.
 
+### 9.2 Estimativa de Receita de Intercâmbio Perdida
+
+> O **intercâmbio** é a tarifa que o banco emissor (Priceless Bank) recebe do adquirente em cada transação aprovada no cartão. PIX tem **intercâmbio zero** por regulação do Banco Central — toda transação migrada para PIX representa receita zerada para o emissor.
+
+#### Metodologia
+
+| Parâmetro | Valor | Fonte |
+|-----------|-------|-------|
+| Taxa de intercâmbio — Crédito | **1,8%** | Benchmark Mastercard Brasil (média doméstica) |
+| Taxa de intercâmbio — Débito | **0,6%** | Teto regulatório BACEN |
+| Taxa média ponderada do portfólio | **~1,65%** | (83% crédito × 1,8% + 17% débito × 0,6%) |
+| Ticket-base normalizado | **R$ 615** | Mediana 2023 e 2025 (excluindo anomalia 2024) |
+| Baseline de referência | **2023Q4 normalizado** | Último trimestre antes da anomalia de ticket de 2024 |
+
+**⚠️ Nota metodológica sobre o ticket de 2024:** O ticket médio das transações em 2024 é ~R$1.550/tx — exatamente 2,5x maior que 2023 e 2025 (~R$615/tx). Esse padrão é um artefato na geração dos dados sintéticos do challenge (mesma quantidade de transações, mas volume 2,5x maior). Para comparações intertemporais, a análise usa o **intercâmbio normalizado** (quantidade real × ticket-base × taxa média), que elimina esse distorção.
+
+**⚠️ Dado ausente:** Os registros de PIX de 2025Q1 e Q2 estão completamente ausentes do dataset. A análise de custo de oportunidade PIX cobre apenas os trimestres disponíveis.
+
+#### Intercâmbio Estimado por Trimestre
+
+| Trimestre | Vol. Cartão | Qtd. Tx | Ticket Médio | Intercâmbio Real | Intercâmbio Norm. | Perda vs 2023Q4 |
+|-----------|-------------|---------|-------------|-----------------|------------------|----------------|
+| 2023Q1 | R$ 7,4M | 12.233 | R$ 607 | R$ 126k | R$ 126k | — |
+| 2023Q2 | R$ 6,6M | 10.792 | R$ 615 | R$ 113k | R$ 111k | — |
+| 2023Q3 | R$ 7,1M | 11.579 | R$ 612 | R$ 120k | R$ 119k | — |
+| 2023Q4 | R$ 7,4M | 11.921 | R$ 618 | R$ 125k | **R$ 123k ← ref.** | — |
+| ⚠️ 2024Q1 | R$ 16,5M | 10.642 | **R$ 1.550** | R$ 280k | R$ 110k | R$ 13k |
+| ⚠️ 2024Q2 | R$ 17,2M | 10.921 | **R$ 1.579** | R$ 293k | R$ 113k | R$ 10k |
+| ⚠️ 2024Q3 | R$ 20,7M | 13.180 | **R$ 1.573** | R$ 352k | R$ 136k | — |
+| ⚠️ 2024Q4 | R$ 23,5M | 15.118 | **R$ 1.552** | R$ 398k | R$ 156k | — |
+| 🔴 2025Q1 | R$ 11,8M | 19.117 | R$ 617 | R$ 200k | R$ 197k | — |
+| 🔴 2025Q2 | R$ 11,5M | 18.713 | R$ 613 | R$ 195k | R$ 193k | — |
+| 🔴 2025Q3 | R$ 7,8M | 12.793 | R$ 610 | R$ 133k | R$ 132k | **R$ 0** |
+| 🔴 2025Q4 | R$ 5,9M | 9.652 | R$ 613 | R$ 100k | R$ 100k | **R$ 23k/tri** |
+
+> **Observação sobre 2025Q1/Q2:** Embora o ticket seja normal (R$615), a quantidade de transações em Q1 (19.117) e Q2 (18.713) é anormalmente alta comparada ao padrão histórico (~11-13k/tri), gerando intercâmbio elevado. Em Q3 e Q4 o volume de transações despenca de volta (~10-13k), com intercâmbio caindo para R$100-133k.
+
+#### Custo de Oportunidade — PIX para PJ
+
+| Trimestre | Vol. PIX→PJ | Qtd. PIX | Oport. Intercâmbio (1,8%) |
+|-----------|-------------|---------|--------------------------|
+| 2023Q1–Q4 | ~R$ 3,6M/tri | ~14.700/tri | ~R$ 65k/tri |
+| 2024Q1–Q4 | ~R$ 3,5M/tri | ~14.500/tri | ~R$ 63k/tri |
+| 2025Q3 | **R$ 13,5M** | 13.273 | **R$ 243k** |
+| 2025Q4 | **R$ 19,9M** | 19.645 | **R$ 358k** |
+
+#### KPIs de Impacto
+
+| Métrica | Valor |
+|---------|-------|
+| Intercâmbio em 2025Q4 (normalizado) | R$ 100k/trimestre |
+| Custo de oportunidade PIX→PJ em 2025Q4 | **R$ 358k/trimestre** |
+| Razão PIX-PJ / Vol. Cartão em 2025Q4 | **3,4×** (PIX PJ supera o cartão) |
+| Se banco recuperasse 50% do PIX PJ para cartão | +R$ 179k/tri ≈ 179% da receita atual |
+| Intercâmbio anualizado em risco (extrapolando Q4 2025) | **~R$ 400k/ano** |
+
+#### Interpretação
+
+Em 2025Q4, o volume de PIX para estabelecimentos (R$19,9M) é **3,4× maior** que o volume total de cartão (R$5,9M). Se apenas **30% desse PIX PJ** fosse convertido em transação de cartão de crédito, o banco praticamente dobraria sua receita de intercâmbio trimestral.
+
+O custo de oportunidade não é apenas contábil: cada transação PIX PJ representa também **perda de dados de consumo** (setor, ticket, recorrência) que alimentam scoring, ofertas e cross-sell — ativos intangíveis que se degradam junto com o volume de cartão.
+
 ---
 
 ## 10. Radar de Qualidade dos Dados — Pegadinhas
