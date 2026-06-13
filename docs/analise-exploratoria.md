@@ -600,6 +600,91 @@ Em 2025Q4, o volume de PIX para estabelecimentos (R$19,9M) é **3,4× maior** qu
 
 O custo de oportunidade não é apenas contábil: cada transação PIX PJ representa também **perda de dados de consumo** (setor, ticket, recorrência) que alimentam scoring, ofertas e cross-sell — ativos intangíveis que se degradam junto com o volume de cartão.
 
+### 9.3 Distribuição de Idades e Uso do PIX
+
+Cruzamento entre `Base_clientes` e `Base_pix` para entender **quem usa PIX**, com que **intensidade** e quanto **volume movimenta** por faixa etária.
+
+#### Penetração do PIX por Faixa Etária
+
+| Faixa | Clientes | Usa PIX | % Penetração | Sem PIX |
+|-------|----------|---------|-------------|---------|
+| 18-29 | 115 | 77 | 67% | 38 |
+| 30-39 | 279 | 203 | 73% | 76 |
+| 40-49 | 578 | 442 | **76%** | 136 |
+| 50-59 | 562 | 409 | 73% | 153 |
+| 60-69 | 336 | 233 | 69% | 103 |
+| 70+   | 90  | 66  | 73% | 24 |
+
+> A faixa 40-49 tem a maior penetração (76%), não a mais jovem. A faixa 18-29 tem a menor (67%) — mas isso é enganoso: ela é a **menor faixa** do banco, um sinal de que o banco não está captando o público jovem.
+
+#### Intensidade de Uso e Volume por Cliente
+
+| Faixa | PIX tx/cli | Cartão tx/cli | **Razão PIX÷Cartão** | Vol PIX/cli | Vol Cartão/cli | Mediana PIX |
+|-------|-----------|--------------|----------------------|------------|----------------|-------------|
+| **18-29** | **438** | **119** | **🔴 3,7×** | **R$ 153k** | R$ 107k | R$ 188 |
+| 30-39 | 181 | 107 | 1,7× | R$ 76k | R$ 98k | R$ 191 |
+| 40-49 | 180 | 107 | 1,7× | R$ 78k | R$ 97k | R$ 192 |
+| 50-59 | 181 | 112 | 1,6× | R$ 79k | R$ 104k | R$ 203 |
+| 60-69 | 171 | 114 | 1,5× | R$ 74k | R$ 103k | R$ 197 |
+| **70+** | **194** | **97** | **🟡 2,0×** | **R$ 95k** | R$ 88k | **R$ 252** |
+
+**Achados críticos:**
+
+**🔴 Faixa 18-29 — O alerta mais urgente:**
+- Fazem **3,7× mais transações PIX do que cartão** por cliente — a maior razão de todas as faixas
+- Volume PIX por cliente (R$153k) é **2× maior** que nas faixas intermediárias (R$76-79k)
+- Esses jovens *têm* cartão, *têm* limite — e **escolhem PIX ativamente**
+- São apenas 115 clientes: o banco não está captando o público jovem que, quando existe, já prefere PIX ao cartão
+- PIX para PJ: R$5,3M (14.996 transações) — proporcionalmente relevante dado o tamanho do grupo
+
+**🟡 Faixa 70+ — Surpresa:**
+- Segunda maior razão PIX÷Cartão (2,0×)
+- Mediana de ticket PIX mais alta (R$252 vs R$188-203 nas outras faixas): fazem menos PIX, mas de valores maiores
+- Volume por cliente via PIX (R$95k) supera o cartão (R$88k)
+
+**🟢 Faixas 40-59 — O core atual do banco:**
+- Menor razão PIX/Cartão (1,5-1,7×) — ainda usam cartão de forma equilibrada
+- Respondem pelo maior volume absoluto de PIX (R$34M e R$32M) por serem os maiores grupos
+- Mas a tendência de crescimento do PIX em 2025 está acelerando também nessas faixas
+
+#### Volume PIX Total e Breakdown PJ por Faixa
+
+| Faixa | Vol Total PIX | Vol PIX→PJ | % PJ | Qtd PIX→PJ |
+|-------|--------------|------------|------|-----------|
+| 18-29 | R$ 11,8M | R$ 5,3M | 45% | 14.996 |
+| 30-39 | R$ 15,5M | R$ 7,5M | 48% | 18.161 |
+| 40-49 | R$ 34,4M | R$ 16,7M | 49% | 39.718 |
+| 50-59 | R$ 32,4M | R$ 15,8M | 49% | 36.833 |
+| 60-69 | R$ 17,1M | R$ 8,3M | 48% | 19.884 |
+| 70+   | R$ 6,3M  | R$ 3,0M  | 47% | 6.357 |
+
+> A proporção PIX→PJ é uniforme entre todas as faixas (~47-49%), indicando que a canibalização do cartão é um comportamento **transversal a toda a base**, não concentrado em um grupo específico. Todas as idades estão usando PIX para pagar em estabelecimentos comerciais.
+
+#### Evolução Temporal 2025 — Crescimento por Faixa
+
+Volume de PIX enviado (Q3 → Q4 2025):
+
+| Faixa | 2025Q3 | 2025Q4 | Crescimento |
+|-------|--------|--------|-------------|
+| 18-29 | R$ 1,23M | R$ 1,83M | +49% |
+| 30-39 | R$ 3,11M | R$ 4,81M | +55% |
+| 40-49 | R$ 7,26M | R$ 10,59M | **+46%** |
+| 50-59 | R$ 6,62M | R$ 9,84M | **+49%** |
+| 60-69 | R$ 3,66M | R$ 5,30M | +45% |
+| 70+   | R$ 1,29M | R$ 1,71M | +33% |
+
+> O crescimento do PIX em Q4 2025 é forte e **uniforme** em todas as faixas (+33% a +55%). Nenhuma faixa está revertendo a tendência — a migração para PIX está acelerando em toda a base simultaneamente.
+
+#### Interpretação para o Diagnóstico
+
+A análise de faixa etária revela **três dimensões do problema**:
+
+1. **Captação:** O banco tem pouquíssimos clientes jovens (18-29 = 5,9% da base). O público que *mais adota* PIX e que o LuminaPay conquista está sub-representado.
+
+2. **Comportamento:** Dentro de cada faixa, o PIX já supera o cartão em frequência de uso. Não é um problema "só dos jovens" — é um problema estrutural de toda a base.
+
+3. **Aceleração:** O crescimento de Q3→Q4 2025 é robusto em todas as faixas, sinalizando que a janela de intervenção está se fechando. O Priceless Bank precisa agir antes que o padrão de preferência por PIX se consolide irreversivelmente.
+
 ---
 
 ## 10. Radar de Qualidade dos Dados — Pegadinhas
