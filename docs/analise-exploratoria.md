@@ -136,53 +136,62 @@ O time de Strategy & Transformation da Mastercard conduziu estudo de benchmarkin
 
 ## 2. Schema Visual — Relacionamento entre Bases
 
-```
-                      ┌─────────────────────────────┐
-                      │      BASE CLIENTES           │
-                      │   (1.960 registros — PK)     │
-                      │  🔑 Cliente_ID               │
-                      │  Data_Nascimento             │
-                      │  Renda_Anual (255 nulls ⚠️)  │
-                      │  Numero_Cartoes              │
-                      │  Cidade / Estado             │
-                      │  Possui_Conta_Adicional      │
-                      └──────┬──────────┬────────────┘
-                             │          │
-              ┌──────────────┘          └─────────────────────┐
-              │ Cliente_ID (1:N)              Cliente_ID (1:N) │
-              ▼                                               ▼
-┌─────────────────────┐                     ┌─────────────────────┐
-│   BASE CARTÕES      │                     │     BASE PIX        │
-│  (4.006 reg.)       │                     │  (278.940 reg.)     │
-│ 🔑 ID_Cartao        │                     │  Cliente_ID         │
-│  Produto_Mastercard │                     │  Valor (917 neg ⚠️) │
-│  Tipo_Cartao        │                     │  Tipo_transacao     │
-│  Data_Emissao ⚠️    │                     │  Aprovado           │
-│  Limite_Cartao      │                     │  PF_PJ / Agendado   │
-└────────┬────────────┘                     └─────────────────────┘
-         │ ID_Cartao (1:N)
-         ▼
-┌──────────────────────────────────────┐
-│         BASE TRANSAÇÕES              │
-│       (156.826 registros)            │
-│  🔑 ID_Transacao                     │
-│  FK Cliente_ID + FK ID_Cartao        │
-│  Valor_Compra (165 neg ⚠️)           │
-│  Industria / Tipo_Compra             │
-│  Input_Mode / Wallet                 │
-│  Crossborder (95.6% null ⚠️ design)  │
-│  Contactless (82.5% null ⚠️ design)  │
-└──────────────────────────────────────┘
+```mermaid
+erDiagram
+    CLIENTES ||--o{ CARTOES : "Cliente_ID (1:N)"
+    CLIENTES ||--o{ PIX : "Cliente_ID (1:N)"
+    CLIENTES ||--o{ TRANSACOES : "Cliente_ID (1:N)"
+    CLIENTES ||--o{ INVESTIMENTOS : "Cliente_ID (1:N)"
+    CARTOES  ||--o{ TRANSACOES : "ID_Cartao (1:N)"
 
-┌──────────────────────────────┐
-│    BASE INVESTIMENTOS        │
-│     (21.200 registros)       │
-│  FK Cliente_ID               │
-│  Produto_Investimento        │
-│  Valor_Aplicado (1566 neg.)  │
-│  Saldo_Atual                 │
-│  Data_de_vencimento          │
-└──────────────────────────────┘
+    CLIENTES {
+        int Cliente_ID PK "1.960 registros"
+        date Data_Nascimento
+        float Renda_Anual "255 nulls"
+        int Numero_Cartoes
+        string Cidade
+        string Estado
+        bool Possui_Conta_Adicional
+    }
+
+    CARTOES {
+        int ID_Cartao PK "4.006 registros"
+        int Cliente_ID FK
+        string Produto_Mastercard
+        string Tipo_Cartao
+        date Data_Emissao "qualidade"
+        float Limite_Cartao
+    }
+
+    PIX {
+        int Cliente_ID FK "278.940 registros"
+        float Valor "917 negativos"
+        string Tipo_transacao
+        bool Aprovado
+        string PF_PJ
+        bool Agendado
+    }
+
+    TRANSACOES {
+        int ID_Transacao PK "156.826 registros"
+        int Cliente_ID FK
+        int ID_Cartao FK
+        float Valor_Compra "165 negativos"
+        string Industria
+        string Tipo_Compra
+        string Input_Mode
+        string Wallet
+        string Crossborder "95.6% null (design)"
+        string Contactless "82.5% null (design)"
+    }
+
+    INVESTIMENTOS {
+        int Cliente_ID FK "21.200 registros"
+        string Produto_Investimento
+        float Valor_Aplicado "1566 negativos"
+        float Saldo_Atual
+        date Data_de_vencimento
+    }
 ```
 
 **Notas:** ⚠️ = anomalia detectada | "design" = comportamento esperado do sistema
