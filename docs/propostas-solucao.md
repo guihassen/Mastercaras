@@ -14,6 +14,7 @@ Nas iterações anteriores chegamos a três frentes. Agora elas viram **um produ
 - **Motor de decisão com três faixas** — à vista que rende, crédito à vista e **crédito parcelado** (à escolha do cliente, inclusive em valores baixos) — para ser uma solução completa.
 - **Score Priceless + cashback** que cresce com o relacionamento e **puxa a adoção de cartões que fazem sentido**.
 - Valor que **vale a partir de 1 cartão** (ou até zero, via Saldo Vivo), com modo turbo para quem tem portfólio.
+- **Cliente no comando:** preferências personalizam o algoritmo e os benefícios, ele escolhe o nível de automação, e cadastra **metas financiadas pelos próprios benefícios**.
 
 O nome do produto: **Priceless Pay** — a evolução com os pés no chão do "Pague com Você". Em vez de pagar com o rosto, a Helena paga com o celular que já tem, e o banco faz todo o resto acontecer por trás.
 
@@ -31,7 +32,7 @@ O nome do produto: **Priceless Pay** — a evolução com os pés no chão do "P
 A Helena já tem tudo de que precisa para pagar: celular, cartões e PIX. O que falta não é um instrumento novo — é **inteligência por cima do pagamento**. Hoje ela decide na correria (e erra), o dinheiro fica parado na conta corrente rendendo zero, e o fluxo do dia a dia escapa do banco como PIX cego: sem dado, sem receita, sem vínculo. O Priceless Pay resolve isso sem hardware novo.
 
 ### Objetivo
-Transformar o celular da Helena na **carteira inteligente do Priceless**: ela paga uma vez, simples, pelo Apple/Google Pay ou pelo app, e o banco **escolhe automaticamente a melhor forma de pagar, mantém o dinheiro rendendo até o último segundo e recompensa cada gasto conforme o relacionamento dela** — sem que ela precise pensar.
+Transformar o celular da Helena na **carteira inteligente do Priceless**: ela paga uma vez, simples, pelo Apple/Google Pay ou pelo app, e o banco **escolhe a melhor forma de pagar, mantém o dinheiro rendendo até o último segundo e recompensa cada gasto conforme o relacionamento dela** — **sempre sob as regras que ela definiu**, sem que ela precise pensar no dia a dia.
 
 ### Como Funciona — Arquitetura
 
@@ -89,9 +90,32 @@ Cashback sozinho não fideliza esse público — mas **cashback que cresce com o
 
 **De onde vem o dinheiro do cashback:** do **próprio intercâmbio recuperado** no crédito à vista + de uma rede de comerciantes parceiros. Quanto mais a Helena concentra → mais o banco fatura → mais cashback volta → mais ela concentra. **Um ciclo que se autofinancia** e que transforma cashback de commodity em recompensa de lealdade.
 
+#### 6. Controle e Personalização — o cliente no comando
+O maior risco de adesão não é técnico: é o cliente sentir que **entregou as decisões para um algoritmo**. A persona é avessa a risco e valoriza controle. A virada de posicionamento: o Autopilot **dá mais controle, não menos**. Hoje a Helena não consegue calcular o ótimo 3× por dia — então paga no chute e perde. Com o Priceless Pay ela sai de "pagar no chute" para **"ditar a estratégia e tê-la executada sem falha"**. O lema: **"você no comando, o Autopilot no volante."**
+
+**Preferências que personalizam o algoritmo (Minhas Regras).** A Helena configura uma vez, e isso molda tanto o roteamento quanto os benefícios:
+- **Prioridade:** "priorize rendimento" / "priorize cashback" / "priorize proteção".
+- **Regras por categoria:** "mercado sempre no débito", "o Black só em viagem", "nunca parcele".
+- **Categorias que mais importam para ela:** o cashback é **ponderado** para o que ela valoriza (ex.: mais cashback em viagem e saúde, menos em outras), personalizando o benefício ao máximo.
+
+O Autopilot então **opera dentro das regras dela** — a IA não decide *por* ela, executa *a política dela* com perfeição.
+
+**Escada de confiança (três modos, ela escolhe):** **Manual** (eu escolho; ele só sugere) → **Sugestão** (ele pré-seleciona, eu confirmo/troco em 1 toque) → **Piloto automático** (ele executa, eu reviso depois). Entra em **Sugestão** e sobe para automático quando ela quiser. Nada de salto de fé no dia 1.
+
+**Mais salvaguardas:** override sempre (antes e depois, com reversibilidade na janela crédito↔Saldo Vivo) · **guardrails** ("crédito até R$X sozinho; acima, me pergunte") · **prova + garantia**: relatório mensal auditável "o que o Autopilot fez por você" e a promessa — *se ele algum dia escolher pior do que você teria, cobrimos a diferença*. Para o cético, vira "não tenho nada a perder".
+
+#### 7. Metas — seus benefícios viram seus objetivos
+A Helena pode cadastrar **metas** (ex.: "Viagem 2027 — R$8.000", "Reserva de emergência — R$20k", "Trocar o carro"). O diferencial: a meta é alimentada **pelos próprios benefícios que a solução gera** — cashback, rendimento do Saldo Vivo e recompensas são canalizados automaticamente para o objetivo escolhido.
+
+- **"Gaste de forma inteligente pelo Priceless e seu objetivo se financia sozinho":** cada compra otimizada pelo Autopilot empurra a barra de progresso da meta.
+- **Não é o porquinho/caixinha:** lá o cliente deposita manualmente. Aqui, **o banco abastece a meta com o valor que ele mesmo gera para o cliente** — o esforço é do algoritmo, não da Helena (ela ainda pode reforçar com aportes, se quiser).
+- **Gancho emocional + motor de concentração:** a meta dá um *porquê* para concentrar a vida financeira no Priceless. Quanto mais ela usa, mais rápido a viagem chega → mais ela usa. Vínculo que cashback solto não cria, e que realimenta o ciclo econômico.
+
 ### Justificativa
 - **Atende o consumo real:** atua nas ~3 transações/dia, no café e no almoço, não numa compra rara.
 - **Dá ao perfil o que ele mais quer:** certeza de sair sempre no melhor negócio, sem esforço; dinheiro rendendo até pagar; e reconhecimento crescente — não gamificação de fintech jovem.
+- **Resolve o risco de adesão pelo controle:** o cliente define as regras, escolhe o nível de automação e vê tudo auditável — sente que comanda, o que constrói a confiança necessária para aderir.
+- **Personaliza ao máximo:** preferências moldam o algoritmo e ponderam os benefícios; metas dão um objetivo concreto financiado pelos próprios benefícios.
 - **Resolve a tensão crédito × débito** alinhando cliente (à vista, sem dívida) e banco (intercâmbio), sem coerção.
 - **Pé no chão:** roda sobre Apple/Google Pay e PIX — sem novo hardware, sem nova rede de aceitação.
 - **Para o banco:** recupera o fluxo que vazava como PIX cego (dado + intercâmbio + AUM) e torna o Priceless o **orquestrador indispensável** da rotina financeira da Helena.
@@ -102,7 +126,7 @@ Cashback sozinho não fideliza esse público — mas **cashback que cresce com o
 > **16h — Farmácia.** Remédio contínuo R$120. A farmácia é parceira; o **score Ouro** da Helena destrava 8% + desconto de cliente regular. Autopilot no crédito à vista. Aviso: *"+R$9,60 e você é cliente regular aqui."*
 > **20h — PIX para o encanador (PJ).** R$300. O valor rendeu no **Saldo Vivo** até a liquidação e foi varrido no último segundo; como é lojista novo, o Autopilot ativa a **proteção** automaticamente.
 >
-> **Fim do mês:** Helena pagou exatamente como sempre. Mas recebeu ~R$70 a mais em cashback e rendimento, viu o dinheiro render até cada pagamento, foi tratada como VIP na própria rotina — e tudo isso passou pelo Priceless.
+> **Fim do mês:** Helena pagou exatamente como sempre — no modo **Sugestão**, com a regra "priorize rendimento" que ela mesma definiu. Recebeu ~R$70 a mais em cashback e rendimento, que foram **direto para a meta "Viagem 2027"** (a barra andou sozinha), viu o dinheiro render até cada pagamento, foi tratada como VIP na própria rotina — e tudo isso passou pelo Priceless, sob as regras dela.
 > **Para o banco:** recuperou o fluxo que vazava no PIX, faturou intercâmbio no crédito à vista, **reteve todo o saldo dela como AUM no Saldo Vivo (spread)**, subiu o score (mais concentração) e virou o banco principal da Helena.
 
 ### Resultados Esperados (produto)
@@ -206,7 +230,7 @@ Os concorrentes disputam o **meio de pagamento** (PIX no crédito, invest→limi
 
 ### Roteiro sugerido para o pitch de 5 min
 1. **Diagnóstico (1 min):** valor migrou para o PIX cego → caímos de 33% para 19%.
-2. **A virada (1,5 min):** Priceless Pay — pagamento pelo celular + Autopilot + Saldo Vivo + Score, com o exemplo da Helena.
+2. **A virada (1,5 min):** Priceless Pay — pagamento pelo celular + Autopilot (sob as regras do cliente) + Saldo Vivo + Score + metas, com o exemplo da Helena.
 3. **Crédito × Débito e o modelo de receita (1 min):** como reconvertemos valor em receita **sem forçar dívida e sem cobrar taxa do cliente** (intercâmbio invisível + assinatura autofinanciada + incentivos alinhados).
 4. **Plano de ação e o ciclo econômico (1,5 min):** Fase 0 → 1 → 2 e o motor que recupera e depois ganha market share.
 
