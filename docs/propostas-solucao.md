@@ -139,6 +139,128 @@ A Helena pode cadastrar **metas** (ex.: "Viagem 2027 — R$8.000", "Reserva de e
 
 ---
 
+## Recuperação de Faturamento — A Perda e a Projeção (3 cenários)
+
+> Tradução da tese em números **defensáveis**, calculados sobre os dados reais em `notebooks/main.ipynb` (Seção 14). Primeiro dimensionamos o tamanho da perda; depois projetamos o que a solução recupera em três cenários.
+
+### Premissas (todas ancoradas nos dados)
+| Parâmetro | Valor | Fonte |
+|-----------|-------|-------|
+| Intercâmbio crédito | 1,8% | Benchmark Mastercard Brasil |
+| Intercâmbio débito | 0,6% | Teto regulatório BACEN |
+| **Taxa ponderada do portfólio** | **1,60%** | Split real de volume: **83,6% crédito / 16,4% débito** |
+| Ticket-base normalizado | R$ 614 | Mediana 2023/2025 (neutraliza a anomalia de ticket de 2024) |
+| Base de clientes | 1.960 | `Base_clientes` |
+| PIX→PJ (run-rate) | R$ 19,87M/tri (2025Q4) | `Base_pix` |
+
+### Parte 1 — Dimensão da perda de faturamento
+
+A inversão cartão→PIX corrói o faturamento de intercâmbio por **dois caminhos**:
+
+| Componente | Cálculo | Perda/ano |
+|------------|---------|-----------|
+| **1. Colapso do intercâmbio de cartão** | 2024Q4 normalizado (R$ 148,8k/tri) → 2025Q4 real (R$ 94,9k/tri) = **−R$ 53,9k/tri** | **R$ 215,7k** |
+| **2. Oportunidade não capturada no PIX→PJ** | R$ 19,87M/tri × 1,60% (intercâmbio que seria faturado se fosse cartão) | **R$ 1.274,1k** |
+| **PERDA TOTAL DE FATURAMENTO** | | **≈ R$ 1,49M/ano** |
+
+> O grosso da perda **não é** a queda do cartão (R$ 216k/ano) — é o **R$ 1,27M/ano de intercâmbio que evapora** porque o consumo migrou para o PIX→PJ, onde o intercâmbio é zero. Em 2025Q4, o banco fatura ~R$ 95k de intercâmbio de cartão enquanto deixa ~R$ 319k/tri na mesa no PIX→PJ. Captura apenas **~23%** do intercâmbio de transação que tem ao seu alcance.
+
+![Dimensão da perda](recuperacao_perda.png)
+
+### Parte 2 — Projeção da solução em 3 cenários
+
+Com a **plataforma gratuita**, a receita-**core** vem de três vias que **não são taxa cobrada do cliente**: **intercâmbio recuperado** (lojista paga), **spread sobre AUM** (Saldo Vivo) e **juros/IOF do parcelado** (só se o cliente escolher parcelar). A **assinatura premium é upside opcional** — fora do core, porque a solução repõe a perda **sem depender dela**. Os cenários variam as alavancas de adesão e conversão:
+
+| Alavanca | Pessimista | Neutro | Otimista |
+|----------|:----------:|:------:|:--------:|
+| Adesão ao Priceless Pay (% base) | 30% | 50% | 70% |
+| Captura do fluxo PIX→PJ | 25% | 45% | 65% |
+| Conversão p/ crédito à vista | 30% | 50% | 65% |
+| Saldo médio capturável/cliente (Saldo Vivo) | R$ 10k | R$ 18k | R$ 28k |
+| % dos adotantes que mantém saldo | 60% | 70% | 80% |
+| Spread sobre AUM (a.a.) | 1,0% | 1,5% | 2,0% |
+| Penetração do parcelado | 5% | 10% | 15% |
+| Margem líquida do parcelado | 4% | 5% | 6% |
+| *Assinantes premium (% base) — upside opcional* | *5%* | *12%* | *25%* |
+
+#### Resultado — receita incremental anual (plataforma gratuita)
+
+| Fonte (core grátis) | Pessimista | Neutro | Otimista |
+|---------------------|-----------:|-------:|---------:|
+| Intercâmbio recuperado | R$ 95,6k | R$ 286,7k | R$ 538,3k |
+| Spread sobre AUM | R$ 35,3k | R$ 185,2k | R$ 614,7k |
+| Juros/IOF parcelado | R$ 11,9k | R$ 89,4k | R$ 302,2k |
+| **CORE (grátis) / ano** | **R$ 143k** | **R$ 561k** | **R$ 1,46M** |
+| **% da perda reposta (só com o core)** | **10%** | **38%** | **98%** |
+| AUM sob gestão (Saldo Vivo) | R$ 3,5M | R$ 12,3M | R$ 30,7M |
+| *(+) Premium opcional (upside)* | *+R$ 29,4k* | *+R$ 70,6k* | *+R$ 176,4k* |
+| *Total com upside* | *R$ 172k* | *R$ 632k* | *R$ 1,63M* |
+
+![Projeção dos 3 cenários](projecao_cenarios.png)
+
+#### Metodologia — como cheguei em cada número
+Cada cenário é a soma de fórmulas simples; todos os parâmetros estão no notebook (Seção 14) e podem ser auditados.
+
+**As fórmulas:**
+1. **Intercâmbio recuperado** = PIX→PJ anual × captura × conversão × 1,60%
+2. **Spread sobre AUM** = nº de clientes × adesão × % que mantém saldo × saldo médio × spread
+3. **Juros/IOF parcelado** = (PIX→PJ anual × captura × conversão) × penetração do parcelado × margem líquida
+4. *(upside)* **Premium** = nº de clientes × % assinantes × mensalidade × 12
+
+**Valores-base (extraídos dos dados):**
+- **PIX→PJ anual = R$ 79,47M** → run-rate de 2025Q4 (R$ 19,87M) × 4. Usar só o Q4 é conservador: não projeta o crescimento que já vinha acontecendo (Q3→Q4 foi +47%).
+- **Intercâmbio = 1,60%** → calculado do split real de volume (83,6% crédito × 1,8% + 16,4% débito × 0,6%).
+- **Nº de clientes = 1.960** (`Base_clientes`).
+
+**De onde vem cada premissa (e por que é defensável):**
+
+| Premissa | Pess / Neutro / Otim | Racional |
+|----------|----------------------|----------|
+| Adesão ao Pay | 30 / 50 / 70% | Hoje a carteira digital é só 14% da base; o pessimista já **dobra** isso, e uma base affluent engajada comporta 70% |
+| Captura do PIX→PJ | 25 / 45 / 65% | Fração do fluxo que passa a transitar pelo app (função da adesão + nudge do Autopilot) |
+| Conversão p/ crédito à vista | 30 / 50 / 65% | Eficácia do nudge; teto porque parte fica em débito/Saldo Vivo por preferência |
+| Saldo médio/cliente | R$ 10k / 18k / 28k | O neutro = saldo de investimento **já observado** (R$ 17,9k/cliente); o Saldo Vivo ainda captura o ocioso da conta |
+| % que mantém saldo | 60 / 70 / 80% | Fração dos adotantes que de fato parqueia saldo no Saldo Vivo |
+| Spread sobre AUM | 1,0 / 1,5 / 2,0% | Spread líquido típico de AUM de baixo risco/liquidez diária |
+| Penetração parcelado | 5 / 10 / 15% | **Baixa de propósito** — a persona prefere à vista |
+| Margem líq. parcelado | 4 / 5 / 6% | Juros/IOF líquidos de funding e risco |
+
+**Exemplo completo — cenário Neutro:**
+- Intercâmbio: R$ 79,47M × 45% × 50% × 1,60% = **R$ 286,7k**
+- Spread AUM: 1.960 × 50% × 70% × R$ 18k = R$ 12,35M sob gestão × 1,5% = **R$ 185,2k**
+- Parcelado: (R$ 79,47M × 45% × 50%) × 10% × 5% = R$ 17,88M × 0,5% = **R$ 89,4k**
+- **Core = 286,7 + 185,2 + 89,4 = R$ 561,3k/ano** (38% da perda) · *(+ premium opcional R$ 70,6k)*
+
+#### Defesa das premissas e sensibilidade (a pergunta da banca)
+Não defendemos um número pontual — defendemos um **intervalo** e a **robustez da conclusão**. Cada premissa tem três camadas: **âncora interna** (nos dados), **âncora externa** (análogos de mercado) e **conservadorismo** explícito. Exemplo da adesão (30/50/70%):
+
+- **Âncora interna:** a carteira digital hoje é **14%** da base → o pessimista (30%) é só **~2× o atual**, um piso quase garantido com provisionamento ativo. E **73% da base já é digitalmente ativa** (transacionam por cartão / usam PIX) → esse é o **teto realista**, por isso o otimista (70%) ≈ quase todo o público ativo, não "todo mundo".
+- **Âncora externa:** o brasileiro adota pagamento digital útil muito rápido (o PIX chegou à maioria dos adultos em ~2 anos; mobile banking tem penetração altíssima). E aqui é **adoção de uma feature numa base que já usa o app** — não aquisição fria.
+- **Conservadorismo:** usamos o run-rate do Q4 (sem projetar o crescimento que já vinha) e saldo neutro = saldo de investimento já observado.
+
+**A resposta mais forte é a sensibilidade** (Seção 14.1 do notebook): em vez de pedir confiança no 50%, mostramos a curva inteira.
+
+![Sensibilidade](sensibilidade.png)
+
+- **Isolando só a adesão** (demais alavancas no neutro, captura = adesão): 30% → repõe **24%**; 50% → **40%**; 70% → **57%**. Precisaríamos de **~62% de adesão** para repor 50% só com essa alavanca.
+- Os **cenários da tabela combinam a adesão com as outras alavancas** (spread, saldo, conversão) — por isso o otimista chega a 98%/110%. O *heatmap* adesão × spread mostra esse efeito conjunto.
+- **A conclusão é robusta:** em **qualquer** ponto razoável da faixa a solução gera receita nova relevante que o banco não tinha. A discussão deixa de ser "o 50% está certo?" e vira "você acredita que batemos X% de adesão numa base que já é 73% digital?".
+
+**Em faturamento absoluto (R$/ano) — Seção 14.2:**
+
+![Adesão × Faturamento e Adesão × Spread](adesao_faturamento.png)
+
+- **Adesão × faturamento** (spread neutro 1,5%, captura = adesão): **30% → R$ 362k · 50% → R$ 603k · 70% → R$ 844k** de receita-core nova por ano. Cresce de forma praticamente linear com a adesão — sem teto à vista.
+- **Adesão × spread** (a 50% de adesão): cada **+0,5 p.p. de spread adiciona ~R$ 62k/ano** (1,0% → R$ 541k · 1,5% → R$ 603k · 2,0% → R$ 665k · 2,5% → R$ 727k). Confirma que **adesão e spread são as duas alavancas dominantes** — e ambas são gerenciáveis pelo banco.
+
+### Leitura — a virada de jogo em números
+- **A plataforma grátis se sustenta sozinha:** mesmo **sem cobrar nada do cliente**, o core repõe **38% da perda no neutro** e **98% no otimista** — só com intercâmbio + AUM + parcelado.
+- **O AUM é a alavanca de maior elasticidade.** No neutro o **spread sobre AUM (R$ 185k)** já rivaliza com o intercâmbio recuperado — receita recorrente e pegajosa que o banco **não tinha antes**. Cada R$ 1k de saldo médio e cada 0,5 p.p. de spread movem a agulha → por isso o **Saldo Vivo é o coração da solução**.
+- **A gratuidade puxa a adesão para cima**, e adesão alimenta os dois motores invisíveis (intercâmbio + AUM). Como a diferença pessimista→otimista é ~10×, **trocar mensalidade por adesão é o negócio certo**: o resultado esperado tende ao topo da faixa.
+- **Com o upside premium opcional**, o otimista chega a R$ 1,63M (**110% da perda**) — o banco sai **mais lucrativo do que era antes da inversão**, com receita diversificada (AUM + intercâmbio), não refém do volume de cartão.
+
+---
+
 ## Plano de Ação — Recuperar e Ganhar Market Share
 > **O foco do hackathon.** Market share aqui = **share de valor transacionado** entre os 5 players (Priceless caiu de 33% → 19% em 2025).
 
@@ -199,27 +321,25 @@ Mais valor transacionado pelo Priceless = mais market share
 ```
 Cada volta do ciclo **aumenta o valor transacionado intermediado pelo Priceless** — que é exatamente a métrica do market share. Não é uma campanha pontual; é uma máquina de composição.
 
-### Modelo de Receita — "sem taxas para o cliente", e ainda assim lucrativo
-O ponto de partida é desfazer uma confusão comum: **o intercâmbio não é uma taxa que o cliente paga.** Ele é pago pelo adquirente (a maquininha do lojista) ao banco emissor, embutido no preço — invisível e sem custo para a Helena. As taxas que *ela* enxerga são outras: anuidade e tarifas. Isso permite uma jogada que parece contraditória, mas não é: **zerar todas as taxas que o cliente vê e, ao mesmo tempo, continuar faturando.**
+### Modelo de Receita — plataforma 100% gratuita, e ainda assim lucrativa
+A decisão central: **a plataforma é grátis para o cliente.** Sem mensalidade obrigatória, sem anuidade, sem tarifa. Isso parece contraditório com "ser lucrativo", mas não é — basta desfazer uma confusão comum: **o intercâmbio não é uma taxa que o cliente paga.** Ele é pago pelo adquirente (a maquininha do lojista) ao banco emissor, embutido no preço — invisível e sem custo para a Helena. **"Grátis para o cliente" não é "de graça para o banco".**
 
-**Quatro fontes, e as duas maiores são invisíveis para o cliente:**
+**Por que escolhemos o grátis:** a adesão é a variável-mestra. Como a diferença entre os cenários é ~10× e é puxada pela adesão (que alimenta intercâmbio + AUM), **cobrar mensalidade custaria mais em adesão do que renderia em assinatura** — trocar ouro por troco. A gratuidade maximiza a adesão e, com ela, os dois motores invisíveis.
 
-| Fonte | Quem paga | Visível p/ o cliente? | Papel |
-|-------|-----------|----------------------|-------|
-| **Spread sobre AUM** (Saldo Vivo) | Ninguém diretamente — é a margem da gestão do saldo | Não — o cliente só vê o **rendimento** dele | **Motor invisível principal:** 100% do saldo vira AUM |
-| **Intercâmbio** (crédito à vista/parcelado) | Lojista (adquirente) | Não — custo zero p/ o cliente | Motor invisível que financia o cashback |
-| **Assinatura premium** ("Priceless Pay Black") | Cliente, **por opção** | Sim — e **se paga sozinha** | Receita recorrente de alta margem |
-| **Juros/IOF** (só se o cliente escolher parcelar) | Cliente que opta por crédito | Sim, e por escolha | Receita do parcelamento |
+**As fontes de receita — nenhuma é taxa de plataforma:**
 
-O **Saldo Vivo muda a escala do modelo:** ao transformar *todo* o saldo do cliente em AUM (não só a parte poupada), o **spread sobre AUM** vira uma fonte estável e recorrente que pode igualar ou superar o intercâmbio — e, como é invisível e sem custo para o cliente, **permite ser ainda mais agressivo no "zero taxa"**.
+| Fonte | Quem paga | Papel | No core grátis? |
+|-------|-----------|-------|:----------------:|
+| **Spread sobre AUM** (Saldo Vivo) | Margem da gestão do saldo (cliente só vê o **rendimento**) | **Motor principal:** 100% do saldo vira AUM | ✅ |
+| **Intercâmbio** | Lojista (adquirente) — custo zero p/ o cliente | Motor que financia o cashback | ✅ |
+| **Juros/IOF** | Só o cliente que **escolhe** parcelar | Receita do parcelamento | ✅ |
+| **Premium "Black"** *(opcional)* | Cliente, se quiser perks extras | Upside; **não necessário** para repor a perda | ⬜ upside |
 
-**A manchete para o cliente: zero anuidade, zero tarifa.** Acaba a anuidade dos cartões premium — a taxa que a Helena realmente sente. O intercâmbio segue por trás, bancado pelo lojista, financiando o cashback dela. Ela percebe um banco "sem taxas"; o banco continua faturando.
+O **Saldo Vivo muda a escala do modelo:** ao transformar *todo* o saldo do cliente em AUM (não só a parte poupada), o **spread sobre AUM** vira a fonte mais estável e recorrente — e, como é invisível e sem custo para o cliente, **sustenta o modelo gratuito**. As projeções acima mostram que **só o core grátis** já repõe 38% (neutro) a 98% (otimista) da perda.
 
-**A assinatura é opcional e autofinanciada.** A "Priceless Pay Black" entrega cashback máximo, bônus de rendimento, proteção e os perks do Círculo — e é vendida com uma promessa verificável: *"custa R$X/mês e o Autopilot te devolve, em média, mais do que isso."* Para um perfil que detesta perder dinheiro, assinar algo que comprovadamente se paga é decisão fácil (lógica Amazon Prime / Costco).
+**O premium é puro upside, opcional.** A "Priceless Pay Black" (cashback máximo, bônus de rendimento, proteção estendida, perks do Círculo) existe para quem quiser pagar por mais — vendida com promessa verificável (*"se paga sozinha"*) —, mas **a tese não depende dela**. É a cereja, não o bolo.
 
-> **Por que NÃO vivemos só de assinatura:** eliminar o intercâmbio para cobrar tudo na mensalidade significaria substituir uma receita que **não custa nada ao cliente** (~R$23–82/cliente/mês, conforme a captura do fluxo PIX→PJ) por uma mensalidade alta, criando atrito de adesão contra concorrentes que parecem "gratuitos". Jogaríamos fora o dinheiro do lojista para cobrar do cliente. O híbrido fica com os dois.
-
-**O diferencial de marca — incentivos alinhados:** *"Os outros bancos ganham quando você gasta demais ou se endivida. Nós ganhamos quando você nos acha úteis."* É o modelo do consultor *fee-only* trazido para o varejo — e, para a nossa persona desconfiada e que valoriza confiança, é um dos argumentos mais fortes da solução.
+**O diferencial de marca — incentivos alinhados:** *"Os outros bancos ganham quando você gasta demais ou se endivida. Nós ganhamos quando você nos acha úteis — e nunca cobramos de você."* O modelo do consultor *fee-only* trazido para o varejo, agora ainda mais limpo porque a plataforma é grátis. Para a persona desconfiada e que valoriza confiança, é um dos argumentos mais fortes da solução.
 
 ---
 
@@ -231,9 +351,11 @@ Os concorrentes disputam o **meio de pagamento** (PIX no crédito, invest→limi
 ### Roteiro sugerido para o pitch de 5 min
 1. **Diagnóstico (1 min):** valor migrou para o PIX cego → caímos de 33% para 19%.
 2. **A virada (1,5 min):** Priceless Pay — pagamento pelo celular + Autopilot (sob as regras do cliente) + Saldo Vivo + Score + metas, com o exemplo da Helena.
-3. **Crédito × Débito e o modelo de receita (1 min):** como reconvertemos valor em receita **sem forçar dívida e sem cobrar taxa do cliente** (intercâmbio invisível + assinatura autofinanciada + incentivos alinhados).
-4. **Plano de ação e o ciclo econômico (1,5 min):** Fase 0 → 1 → 2 e o motor que recupera e depois ganha market share.
+3. **Crédito × Débito e o modelo de receita (1 min):** plataforma **100% grátis** e ainda lucrativa — reconvertemos valor em receita **sem forçar dívida e sem cobrar nada do cliente** (intercâmbio invisível + spread de AUM + incentivos alinhados).
+4. **Os números e o plano (1,5 min):** a inversão custa **~R$ 1,49M/ano**; a solução repõe **42% (neutro)** a **110% (otimista)** disso — no otimista, o banco sai mais lucrativo do que antes da inversão. Fechar com Fase 0 → 1 → 2 e o ciclo econômico.
 
 ---
 
-*Documento gerado em 13/06/2026 | Base: [`analise-exploratoria.md`](analise-exploratoria.md) e `main.ipynb`*
+*Documento gerado em 13/06/2026 | Atualizado em 14/06/2026 | Base: [`analise-exploratoria.md`](analise-exploratoria.md) e `main.ipynb` (Seção 14)*
+*Visualizações: `docs/recuperacao_perda.png`, `docs/projecao_cenarios.png`, `docs/sensibilidade.png`, `docs/adesao_faturamento.png`*
+*Fluxo visual completo (Persona → Problema → Solução → Benefícios → Resultado): [`docs/fluxo-solucao.excalidraw`](fluxo-solucao.excalidraw) — abrir em [excalidraw.com](https://excalidraw.com) ou na extensão Excalidraw do VS Code*
