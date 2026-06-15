@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Priceless Bank — Diagnóstico & Plano de Ação | Mastercard Challenge 2026</title>
+<style>
+  /* ===================== PALETA & TIPOGRAFIA ===================== */
+  :root{
+    --red:#EB001B;        /* Mastercard red */
+    --orange:#F79E1B;     /* Mastercard yellow/orange */
+    --mid:#FF5F00;        /* Mastercard middle */
+    --navy:#1A1A2E;       /* dark */
+    --ink:#16161d;
+    --muted:#5b5b6b;
+    --line:#e4e4ec;
+    --bg-soft:#f7f7fb;
+    --green:#1f9d6b;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    font-size:10.5pt;
+    line-height:1.5;
+    margin:0;
+  }
+
+  h1,h2,h3,h4{ line-height:1.2; margin:0 0 .4em; }
+  /* nunca deixar um título órfão no fim da página — ele anda junto com o conteúdo seguinte */
+  h2,h3,h4{ break-after:avoid; page-break-after:avoid; break-inside:avoid; }
+  /* o parágrafo logo após um título também não deve ser separado dele */
+  h3 + p, h4 + p, h3 + figure, h3 + table{ break-before:avoid; page-break-before:avoid; }
+  h2{ font-size:18pt; color:var(--navy); border-bottom:3px solid var(--red); padding-bottom:.25em; margin-top:0; }
+  h3{ font-size:13pt; color:var(--navy); margin-top:1.1em; }
+  h4{ font-size:11pt; color:var(--mid); text-transform:uppercase; letter-spacing:.04em; }
+  p{ margin:0 0 .7em; }
+  a{ color:var(--red); text-decoration:none; }
+  small{ color:var(--muted); }
+
+  /* ===================== PÁGINA / PRINT ===================== */
+  @page{
+    size:A4;
+    margin:18mm 16mm 20mm;
+  }
+  @page{
+    @bottom-center{ content:"Priceless Bank · Mastercard Challenge 2026 · Documento de uso interno"; font-size:7.5pt; color:#9a9aa8; }
+    @bottom-right{ content:"pág. " counter(page) " / " counter(pages); font-size:7.5pt; color:#9a9aa8; }
+  }
+
+  section{ page-break-after:always; }
+  section:last-of-type{ page-break-after:auto; }
+
+  .avoid-break{ page-break-inside:avoid; }
+  table, figure, .card, .callout, .frente{ page-break-inside:avoid; }
+
+  /* ===================== CAPA ===================== */
+  /* página própria, sem margem -> capa sangra até a borda (full-bleed) */
+  @page cover{ margin:0; }
+  .cover{
+    page:cover;
+    width:210mm; height:296mm;       /* A4 cheio (296 evita página em branco por arredondamento) */
+    margin:0; padding:30mm 22mm;
+    display:flex; flex-direction:column; justify-content:space-between;
+    color:#fff;
+    background:linear-gradient(135deg,var(--navy) 0%, #2a1320 55%, #4a0d14 100%);
+    position:relative; overflow:hidden;
+    page-break-after:auto;           /* a capa já preenche a página; evita quebra/branco extra */
+  }
+  .cover .brandmark{ display:flex; align-items:center; gap:14px; }
+  .mc-logo{ position:relative; width:54px; height:34px; }
+  .mc-logo .c{ position:absolute; top:0; width:34px; height:34px; border-radius:50%; }
+  .mc-logo .c1{ left:0; background:var(--red); }
+  .mc-logo .c2{ left:20px; background:var(--orange); mix-blend-mode:screen; }
+  .cover .kicker{ font-size:10pt; letter-spacing:.32em; text-transform:uppercase; color:#ffb3bd; font-weight:600; }
+  .cover h1{ font-size:40pt; font-weight:800; margin:0; letter-spacing:-.01em; }
+  .cover .product{ color:var(--orange); }
+  .cover .lead{ font-size:13pt; color:#e9e9f2; max-width:440px; margin-top:14px; }
+  .cover .meta{ display:flex; gap:38px; font-size:9.5pt; color:#c9c9d8; border-top:1px solid rgba(255,255,255,.18); padding-top:16px; flex-wrap:wrap; }
+  .cover .meta b{ color:#fff; display:block; font-size:11pt; }
+  .cover .ribbon{ position:absolute; right:-60px; top:120px; width:320px; height:320px; border-radius:50%; background:radial-gradient(circle, rgba(247,158,27,.22), transparent 70%); }
+  .cover .stack{ display:flex; gap:10px; margin-top:22px; }
+  .cover .pill{ font-size:8.5pt; font-weight:700; letter-spacing:.04em; padding:6px 13px; border-radius:30px; border:1px solid rgba(255,255,255,.3); color:#fff; }
+  .cover .pill.solid{ background:var(--red); border-color:var(--red); }
+  .cover .pill.orange{ background:var(--orange); border-color:var(--orange); color:var(--navy); }
+
+  /* ===================== COMPONENTES ===================== */
+  .section-eyebrow{ font-size:8.5pt; letter-spacing:.28em; text-transform:uppercase; color:var(--red); font-weight:700; margin-bottom:4px; }
+
+  .kpi-row{ display:flex; gap:10px; margin:14px 0; }
+  .kpi{
+    flex:1; background:var(--bg-soft); border:1px solid var(--line); border-radius:10px;
+    border-top:4px solid var(--red); padding:12px 14px; text-align:center;
+  }
+  .kpi.orange{ border-top-color:var(--orange); }
+  .kpi.navy{ border-top-color:var(--navy); }
+  .kpi .num{ font-size:21pt; font-weight:800; color:var(--navy); line-height:1; }
+  .kpi .num.red{ color:var(--red); }
+  .kpi .lbl{ font-size:8pt; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:.03em; }
+
+  table{ width:100%; border-collapse:collapse; font-size:9pt; margin:.6em 0 1em; }
+  th,td{ text-align:left; padding:6px 9px; border-bottom:1px solid var(--line); vertical-align:top; }
+  thead th{ background:var(--navy); color:#fff; font-weight:600; font-size:8.5pt; }
+  tbody tr:nth-child(even){ background:var(--bg-soft); }
+  td.num, th.num{ text-align:right; font-variant-numeric:tabular-nums; }
+  .hl{ background:#fff4f5 !important; font-weight:700; }
+  .up{ color:var(--green); font-weight:700; }
+  .down{ color:var(--red); font-weight:700; }
+
+  figure{ margin:1em 0; text-align:center; }
+  figure img{ width:100%; max-width:100%; border:1px solid var(--line); border-radius:8px; }
+  figcaption{ font-size:8.5pt; color:var(--muted); margin-top:6px; }
+
+  .callout{
+    border-left:4px solid var(--red); background:#fff4f5;
+    padding:11px 14px; border-radius:0 8px 8px 0; margin:1em 0; font-size:9.5pt;
+  }
+  .callout.orange{ border-left-color:var(--orange); background:#fff8ee; }
+  .callout.navy{ border-left-color:var(--navy); background:var(--bg-soft); }
+  .callout b{ color:var(--navy); }
+
+  .two-col{ display:flex; gap:16px; }
+  .two-col > *{ flex:1; }
+
+  .card{
+    border:1px solid var(--line); border-radius:10px; padding:13px 15px; margin-bottom:10px;
+    background:#fff;
+  }
+  .card h4{ margin:0 0 .3em; color:var(--navy); font-size:10.5pt; text-transform:none; letter-spacing:0; }
+  .card .tag{ display:inline-block; font-size:7.5pt; font-weight:700; color:#fff; background:var(--red); border-radius:20px; padding:2px 9px; margin-bottom:6px; letter-spacing:.03em; }
+  .card.orange .tag{ background:var(--orange); color:var(--navy); }
+  .card.navy .tag{ background:var(--navy); }
+
+  /* camadas da solução */
+  .layer{ display:flex; gap:12px; margin-bottom:11px; align-items:stretch; page-break-inside:avoid; }
+  .layer .badge{
+    flex:none; width:64px; border-radius:10px; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; color:#fff; font-weight:800; text-align:center;
+  }
+  .layer .badge .k{ font-size:7pt; letter-spacing:.08em; font-weight:700; opacity:.85; }
+  .layer .badge .v{ font-size:20pt; line-height:1; }
+  .layer.motor .badge{ background:var(--navy); }
+  .layer.p1 .badge{ background:var(--red); }
+  .layer.p2 .badge{ background:var(--orange); color:var(--navy); }
+  .layer .body{ flex:1; border:1px solid var(--line); border-radius:10px; padding:11px 15px; }
+  .layer .body h4{ color:var(--navy); text-transform:none; letter-spacing:0; font-size:12pt; margin:0 0 .2em; }
+  .layer .body .role{ font-size:8pt; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--red); }
+  .layer.p2 .body .role{ color:var(--mid); }
+  .layer.motor .body .role{ color:var(--navy); }
+
+  /* frentes do PIX no crédito */
+  .frente{ border:1px solid var(--line); border-left:5px solid var(--orange); border-radius:0 10px 10px 0; padding:11px 15px; margin-bottom:10px; }
+  .frente .ftag{ font-size:8pt; font-weight:800; color:var(--mid); text-transform:uppercase; letter-spacing:.05em; }
+  .frente h4{ color:var(--navy); text-transform:none; letter-spacing:0; font-size:11pt; margin:.15em 0 .35em; }
+  .frente .loop{ font-size:9pt; color:var(--navy); background:var(--bg-soft); border-radius:6px; padding:6px 10px; margin-top:6px; display:inline-block; }
+  .frente .loop b{ color:var(--red); }
+
+  ul{ margin:.3em 0 .8em; padding-left:18px; }
+  li{ margin-bottom:.25em; }
+
+  .phase{ display:flex; gap:12px; margin-bottom:10px; align-items:stretch; }
+  .phase .stripe{ width:6px; border-radius:6px; background:var(--navy); flex:none; }
+  .phase.p1 .stripe{ background:var(--red); }
+  .phase.p2 .stripe{ background:var(--orange); }
+  .phase .body{ flex:1; border:1px solid var(--line); border-radius:0 8px 8px 0; padding:11px 14px; }
+  .phase .body h4{ color:var(--navy); text-transform:none; letter-spacing:0; font-size:11pt; margin-bottom:.2em; }
+  .phase .when{ font-size:8pt; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:.05em; }
+
+  .flow{ background:var(--navy); color:#fff; border-radius:10px; padding:16px 18px; font-size:9.5pt; }
+  .flow .step{ display:flex; align-items:center; gap:10px; margin:4px 0; }
+  .flow .dot{ width:9px; height:9px; border-radius:50%; background:var(--orange); flex:none; }
+  .flow .arrow{ color:var(--orange); margin-left:3px; }
+
+  .toc{ font-size:11pt; }
+  .toc li{ margin-bottom:.5em; }
+  .toc .n{ color:var(--red); font-weight:800; margin-right:10px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== CAPA ===================== -->
+<section class="cover">
+  <div class="ribbon"></div>
+  <div class="brandmark">
+    <div class="mc-logo"><span class="c c1"></span><span class="c c2"></span></div>
+    <div class="kicker">Mastercard Challenge 2026</div>
+  </div>
+
+  <div>
+    <div class="kicker" style="margin-bottom:10px;">Priceless Bank · Advisory</div>
+    <h1>Reagir à queda<br>e voltar a crescer</h1>
+    <p class="lead">Um <span class="product">motor</span> que reinveste o dinheiro do cliente e reage à perda de share — somado a <span class="product">dois produtos</span> que crescem o cartão onde o PIX não chega e melhoram o PIX no crédito onde ele já está.</p>
+    <div class="stack">
+      <span class="pill navy">Motor · Autopilot</span>
+      <span class="pill solid">Produto 1 · Cartão Digital</span>
+      <span class="pill orange">Produto 2 · PIX no Crédito</span>
+    </div>
+  </div>
+
+  <div class="meta">
+    <div><span>Entrega</span><b>Relatório final</b></div>
+    <div><span>Data</span><b>Junho 2026</b></div>
+    <div><span>Base analisada</span><b>1.960 clientes · 457k transações</b></div>
+    <div><span>Período</span><b>Jan/2023 – Dez/2025</b></div>
+  </div>
+</section>
+
+<!-- ===================== SUMÁRIO ===================== -->
+<section>
+  <div class="section-eyebrow">Sumário executivo</div>
+  <h2>O problema, a solução e o impacto em uma página</h2>
+
+  <div class="kpi-row">
+    <div class="kpi"><div class="num red">33% → 19%</div><div class="lbl">Market share (valor) em 2025</div></div>
+    <div class="kpi navy"><div class="num">−75%</div><div class="lbl">Volume de cartão 24Q4 → 25Q4</div></div>
+    <div class="kpi orange"><div class="num">3,4×</div><div class="lbl">PIX→PJ sobre o cartão em 25Q4</div></div>
+    <div class="kpi"><div class="num red">14%</div><div class="lbl">adoção de carteira digital</div></div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3>O problema</h3>
+      <p>O Priceless Bank perdeu <b>14 p.p. de market share em quatro trimestres</b>. O valor migrou para o <b>PIX cego</b> — um canal sem intercâmbio e sem dado — e, em paralelo, a base esfriou (cartões vencidos, inativos, desinvestimento recorde).</p>
+
+      <h3>A solução — um motor + dois produtos</h3>
+      <p><b>Motor (Autopilot):</b> o cérebro que gerencia o pagamento e <b>reinveste todo o saldo</b> do cliente (Saldo Vivo). É a reação imediata à queda — mostra o Priceless retomando o controle do fluxo.</p>
+      <p>Sobre o motor, dois produtos: <b>Cartão Digital</b> (crescer onde o PIX, por desenho, não entra) e <b>PIX no Crédito melhorado</b> (capturar o fluxo onde o PIX já venceu).</p>
+    </div>
+    <div>
+      <h3>Por que vence</h3>
+      <p>Não brigamos pelo balcão que o PIX já dominou. O motor <b>recupera o que vaza</b>, o Cartão Digital <b>cresce no território PIX-proof</b> (online, internacional, recorrência) e o PIX no Crédito <b>monetiza o próprio fluxo do PIX</b> — com cashback que vira investimento.</p>
+
+      <div class="callout navy">
+        <b>A tese em números.</b> A inversão cartão→PIX custa <b>≈ R$ 1,49 M/ano</b>. O núcleo gratuito da solução repõe <b>38% (neutro)</b> a <b>98% (otimista)</b> dessa perda — e há <b>R$ 17,9 M/tri</b> de PIX→PJ endereçável pelo PIX no crédito.
+      </div>
+      <div class="callout">
+        <b>Prontidão:</b> dos 1.430 clientes que mandam PIX→PJ, <b>998 (70%) já têm cartão de crédito ativo</b> — custo de aquisição do PIX no crédito perto de zero.
+      </div>
+    </div>
+  </div>
+
+  <h3>Roteiro do documento</h3>
+  <ol class="toc">
+    <li><span class="n">1</span>Diagnóstico — a inversão cartão × PIX e a base que esfriou</li>
+    <li><span class="n">2</span>A solução em camadas — o motor e os dois produtos</li>
+    <li><span class="n">3</span>O motor — Autopilot: gerenciar e reinvestir o dinheiro</li>
+    <li><span class="n">4</span>Produto 1 — Cartão Digital: crescer onde o PIX não entra</li>
+    <li><span class="n">5</span>Produto 2 — PIX no Crédito melhorado (3 frentes)</li>
+    <li><span class="n">6</span>Projeção financeira, plano de ação e KPIs</li>
+  </ol>
+</section>
+
+<!-- ===================== 1. DIAGNÓSTICO ===================== -->
+<section>
+  <div class="section-eyebrow">01 · Diagnóstico</div>
+  <h2>A inversão cartão × PIX e a base que esfriou</h2>
+
+  <p>Em 2025, o Priceless Bank passou de <b>33% para 19% de market share</b> em valor transacionado, enquanto a LuminaPay quase dobrou (17% → 30%) e a Aurora Bank cresceu de 8% para 14%.</p>
+
+  <table class="avoid-break">
+    <thead><tr><th>Player</th><th class="num">25 Q1</th><th class="num">25 Q2</th><th class="num">25 Q3</th><th class="num">25 Q4</th><th class="num">Δ</th></tr></thead>
+    <tbody>
+      <tr class="hl"><td>Priceless Bank</td><td class="num">33%</td><td class="num">28%</td><td class="num">23%</td><td class="num">19%</td><td class="num down">−14 p.p.</td></tr>
+      <tr><td>LuminaPay</td><td class="num">17%</td><td class="num">23%</td><td class="num">28%</td><td class="num">30%</td><td class="num up">+13 p.p.</td></tr>
+      <tr><td>Papaya Bank</td><td class="num">33%</td><td class="num">31%</td><td class="num">30%</td><td class="num">28%</td><td class="num down">−5 p.p.</td></tr>
+      <tr><td>Aurora Bank</td><td class="num">8%</td><td class="num">9%</td><td class="num">11%</td><td class="num">14%</td><td class="num up">+6 p.p.</td></tr>
+      <tr><td>Lux Bank</td><td class="num">6%</td><td class="num">7%</td><td class="num">8%</td><td class="num">9%</td><td class="num up">+3 p.p.</td></tr>
+    </tbody>
+  </table>
+
+  <p>🔴 <b>Achado crítico:</b> o volume de cartão despencou de <b>R$ 23,4 M (24Q4) para R$ 5,9 M (25Q4) — −75%</b> — enquanto o PIX explodiu. Em 25Q4, o PIX→PJ (R$ 19,9 M) supera o volume total de cartão em <b>3,4×</b>. O consumo não diminuiu — <b>mudou de trilho</b>.</p>
+
+  <figure>
+    <img src="../notebooks/graficos/A1_inversao.png" alt="Inversão cartão × PIX por trimestre">
+    <figcaption>Volume trimestral por trilho — o cartão (barras) é ultrapassado pelo PIX (linha) ao longo de 2025.</figcaption>
+  </figure>
+
+  <h3>A base também esfriou</h3>
+  <table class="avoid-break">
+    <thead><tr><th>Sintoma</th><th>Evidência nos dados</th><th>Urgência</th></tr></thead>
+    <tbody>
+      <tr><td><b>Churn silencioso (PIX)</b></td><td>Cartão −75%, PIX→PJ +470% em 2025; PIX→PJ = 3,4× o cartão</td><td><span class="down">🔴 Crítica</span></td></tr>
+      <tr><td><b>Cartões nunca usados</b></td><td>469 cartões (11,7%) emitidos e nunca transacionados</td><td><span class="down">🟠 Alta</span></td></tr>
+      <tr><td><b>Cartões vencidos</b></td><td>1.018 cartões expirados sem renovação (56% premium)</td><td><span class="down">🟠 Estrutural</span></td></tr>
+      <tr><td><b>Inatividade & contas-fantasma</b></td><td>87 inativos em 2025 + 85 sem nenhuma atividade histórica</td><td><span class="down">🔴 Alta</span></td></tr>
+      <tr><td><b>Base envelhecida, captação seca</b></td><td>Idade média 49,5; jovens 18-29 = 5,9%; só 189 contas novas em 2025</td><td><span class="down">🟡 Estrutural</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout navy">
+    <b>Leitura:</b> há três problemas distintos — fluxo que <b>vaza</b> (precisa de motor), cartão <b>preso no presencial</b> que o PIX comeu (precisa mudar o campo de batalha) e fluxo de PIX que o banco <b>não monetiza</b> (precisa de um produto que o capture). A solução tem uma resposta para cada um.
+  </div>
+</section>
+
+<!-- ===================== 2. A SOLUÇÃO EM CAMADAS ===================== -->
+<section>
+  <div class="section-eyebrow">02 · A solução em camadas</div>
+  <h2>Um motor que reage à queda + dois produtos que crescem</h2>
+
+  <p>A arquitetura tem três camadas. Primeiro o <b>motor</b>, que estanca a sangria e mostra o banco reagindo. Sobre ele, <b>dois produtos</b> que atacam os dois lados da inversão: crescer o cartão onde o PIX não alcança, e capturar o fluxo onde o PIX já venceu.</p>
+
+  <div class="layer motor">
+    <div class="badge"><span class="k">MOTOR</span><span class="v">⚙</span></div>
+    <div class="body">
+      <div class="role">A reação — gerenciar e reinvestir o dinheiro</div>
+      <h4>Autopilot + Saldo Vivo</h4>
+      <p>O cérebro que escolhe a melhor trilha de pagamento e mantém <b>100% do saldo do cliente rendendo</b> até o último segundo. É a resposta imediata à queda: recupera o fluxo que vazava como PIX cego (dado + intercâmbio + AUM) e prova que o Priceless retomou o controle.</p>
+    </div>
+  </div>
+
+  <div class="layer p1">
+    <div class="badge"><span class="k">PRODUTO</span><span class="v">1</span></div>
+    <div class="body">
+      <div class="role">Crescer onde o PIX, por desenho, não entra</div>
+      <h4>Cartão Digital</h4>
+      <p>Parar de brigar pelo presencial (que o PIX venceu) e dominar o território <b>PIX-proof</b>: online, internacional, recorrência e carteira digital. A maior alavanca está parada na mesa — só <b>14% de adoção</b> de carteira digital, 86% de headroom.</p>
+    </div>
+  </div>
+
+  <div class="layer p2">
+    <div class="badge"><span class="k">PRODUTO</span><span class="v">2</span></div>
+    <div class="body">
+      <div class="role">Capturar o fluxo onde o PIX já está</div>
+      <h4>PIX no Crédito melhorado (3 frentes)</h4>
+      <p>Monetizar o próprio fluxo do PIX→PJ (R$ 17,9 M/tri endereçável) com cashback progressivo que vira investimento, onboarding jovem digital e a Reservinha como âncora de limite. <b>998 clientes já estão prontos</b> (têm crédito ativo e mandam PIX→PJ).</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Por que nesta ordem:</b> o motor primeiro porque <b>reage à queda sem depender de adesão a produto novo</b> — roda sobre o que já existe. Os produtos vêm em cima, cada um endereçando uma metade da inversão: o Cartão Digital recupera o que o PIX <em>não</em> consegue tomar; o PIX no Crédito recupera o que ele <em>já</em> tomou.
+  </div>
+</section>
+
+<!-- ===================== 3. O MOTOR ===================== -->
+<section>
+  <div class="section-eyebrow">03 · O motor</div>
+  <h2>Autopilot — gerenciar o pagamento e reinvestir o dinheiro</h2>
+
+  <p>O motor transforma o celular do cliente na <b>carteira inteligente do Priceless</b>: ele paga uma vez (Apple/Google Pay ou app) e o banco escolhe a melhor forma de pagar, <b>mantém o dinheiro rendendo até o último segundo</b> e recompensa cada gasto. Sem maquininha nova — sobre os trilhos que já existem.</p>
+
+  <h3>Como o motor reage à queda</h3>
+
+  <div class="card navy">
+    <span class="tag">Autopilot</span>
+    <h4>O cérebro que sempre paga do jeito ótimo</h4>
+    <p>A cada compra escolhe a melhor <b>trilha</b> em milissegundos: <b>à vista que rende</b> (débito/Saldo Vivo), <b>crédito à vista</b> (mais cashback + intercâmbio, sem dívida) ou <b>parcelado</b> (se o cliente quiser). Migra suavemente o à-vista-PIX (intercâmbio zero) para o crédito à vista (intercâmbio recuperado) — <b>sem forçar nada</b>.</p>
+  </div>
+
+  <div class="card orange">
+    <span class="tag">Saldo Vivo</span>
+    <h4>Todo o dinheiro rende, todo pagamento varre — a reação central</h4>
+    <p>A conta corrente parada deixa de existir: <b>100% do saldo</b> fica rendendo (liquidez diária, FGC) e cada pagamento dispara um resgate automático no último segundo. Estanca a fuga de AUM na raiz (resgate recorde de <b>R$ 1.632k em 25Q4</b>) e transforma todo o saldo em <b>AUM com spread recorrente</b> — receita que o banco não tinha.</p>
+  </div>
+
+  <div class="card">
+    <span class="tag">Score Priceless</span>
+    <h4>O lock-in que se autofinancia</h4>
+    <p>Mede a concentração da vida financeira no banco e destrava cashback/perks escalonados. O dinheiro do cashback vem do <b>próprio intercâmbio recuperado</b>. Quanto mais o cliente concentra → mais o banco fatura → mais cashback volta → mais ele concentra. Um ciclo que se paga sozinho.</p>
+  </div>
+
+  <h3>O motor econômico — por que isso vira liderança, não só recuperação</h3>
+  <div class="flow avoid-break">
+    <div class="step"><span class="dot"></span> Mais gasto pelo Priceless Pay + todo o saldo no Saldo Vivo</div>
+    <div class="step"><span class="arrow">↓</span></div>
+    <div class="step"><span class="dot"></span> Mais crédito à vista (intercâmbio) + 100% do saldo como AUM (spread)</div>
+    <div class="step"><span class="arrow">↓</span></div>
+    <div class="step"><span class="dot"></span> Mais cashback e rendimento devolvidos (autofinanciados)</div>
+    <div class="step"><span class="arrow">↓</span></div>
+    <div class="step"><span class="dot"></span> Score sobe → cliente concentra ainda mais a vida financeira</div>
+    <div class="step"><span class="arrow">↓</span></div>
+    <div class="step"><span class="dot"></span> Mais valor transacionado pelo Priceless = mais market share <span class="arrow">↺</span></div>
+  </div>
+
+  <div class="callout navy">
+    <b>Persona — Helena, 52, R$ 90k/ano.</b> Faz ~3 pagamentos por dia, quase tudo à vista, misturando PIX e cartão. Não tem tempo de decidir o melhor jeito de pagar — então deixa benefício na mesa. O motor decide por ela, sob as regras dela: <em>"você no comando, o Autopilot no volante."</em>
+  </div>
+</section>
+
+<!-- ===================== 4. PRODUTO 1 — CARTÃO DIGITAL ===================== -->
+<section>
+  <div class="section-eyebrow">04 · Produto 1</div>
+  <h2>Cartão Digital — crescer onde o PIX não entra</h2>
+
+  <p><b>Tese:</b> parar de brigar pelo pagamento que o PIX já venceu (presencial, miúdo, doméstico) e crescer o cartão onde o PIX, <b>por desenho</b>, não entra — online, recorrência, internacional e carteira digital.</p>
+
+  <h3>Por que NÃO competir no presencial</h3>
+  <p>70% do valor de cartão vive no presencial — exatamente o terreno que o PIX está comendo. Reconverter o balcão é correr atrás do prejuízo: o custo de aceitação do PIX é ~zero para o lojista, e a migração é transversal a todas as idades (~60% do PIX vai para PJ em qualquer faixa).</p>
+
+  <figure>
+    <img src="../notebooks/graficos/A3_cp_vs_cnp.png" alt="70% do cartão é presencial">
+    <figcaption>70% do valor de cartão é presencial — a fatia diretamente disputada (e perdida) para o PIX.</figcaption>
+  </figure>
+
+  <h3>Onde o cartão é imbatível — o território PIX-proof</h3>
+  <table class="avoid-break">
+    <thead><tr><th>Território PIX-proof</th><th>Por que o PIX não entra</th></tr></thead>
+    <tbody>
+      <tr><td><b>Internacional (crossborder)</b></td><td>PIX é só BRL / doméstico</td></tr>
+      <tr><td><b>E-commerce / online (CNP)</b></td><td>checkout tokenizado, compra em 1 clique</td></tr>
+      <tr><td><b>Recorrência / assinaturas</b></td><td>cobrança automática agendada (card-on-file)</td></tr>
+      <tr><td><b>Proteção ao comprador</b></td><td>PIX é irreversível, sem chargeback</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div>
+      <figure style="margin-top:0;">
+        <img src="../notebooks/graficos/B1_foto_digital.png" alt="Foto digital do cartão">
+        <figcaption>Só 14% do uso é via carteira digital (86% de headroom); 30% do valor já é online — o piso PIX-proof.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <figure style="margin-top:0;">
+        <img src="../notebooks/graficos/B4_remoto.png" alt="Canais remotos do cartão">
+        <figcaption>46.995 transações remotas (30% do cartão); 9.262 recorrentes = receita previsível que o PIX avulso não captura.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <h3>As alavancas de incentivo (dominar o CNP)</h3>
+  <table class="avoid-break">
+    <thead><tr><th>Alavanca</th><th>Como vence o PIX no online</th><th>Âncora no dado</th></tr></thead>
+    <tbody>
+      <tr><td><b>Tokenização / 1-clique</b></td><td>menos atrito que escanear QR; vira o default do checkout</td><td>wallet só 14% → 86% headroom</td></tr>
+      <tr><td><b>Cartão virtual + controles</b></td><td>tira o medo de fraude — CNP é onde a fraude mora</td><td>CNP = 30% do volume</td></tr>
+      <tr><td><b>Recorrência / assinaturas</b></td><td>card-on-file é o padrão; PIX Automático é nascente</td><td>9.262 recorrentes já existem</td></tr>
+      <tr><td><b>Internacional</b></td><td>PIX simplesmente não existe fora do Brasil</td><td>base 54% Platinum+Black</td></tr>
+      <tr><td><b>Cashback por canal</b></td><td>mais alto em online/internacional/recorrência</td><td>financiado pelo intercâmbio do CNP</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout orange">
+    <b>O motor de incentivo:</b> cashback <b>escalonado por canal</b> — maior no território PIX-proof — executado na prática pelo Score/Autopilot da camada do motor. <small>Os incentivos são estratégia prospectiva: o dataset não traz elasticidade de cashback por canal, então o dimensionamento fino exige piloto/teste A/B.</small>
+  </div>
+</section>
+
+<!-- ===================== 5. PRODUTO 2 — PIX NO CRÉDITO ===================== -->
+<section>
+  <div class="section-eyebrow">05 · Produto 2</div>
+  <h2>PIX no Crédito melhorado — capturar o fluxo onde o PIX venceu</h2>
+
+  <p>O LuminaPay tem "PIX no crédito" e foi o principal vetor da nossa perda. Nossa versão é <b>melhorada</b>: não é só parcelar um PIX — é um produto que transforma cada PIX→PJ em cashback que vira investimento, capta o público jovem e usa a Reservinha como âncora de limite.</p>
+
+  <div class="two-col">
+    <div>
+      <figure style="margin-top:0;">
+        <img src="../notebooks/graficos/prod_mercado.png" alt="Mercado endereçável do PIX no crédito">
+        <figcaption>Mercado endereçável: dos R$ 34,1M de PIX enviado em 25Q4, R$ 19,9M vão para PJ e R$ 17,9M são aprovados = endereçáveis.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <figure style="margin-top:0;">
+        <img src="../notebooks/graficos/prod_ticket.png" alt="Volume parcelável do PIX-PJ">
+        <figcaption>69% do volume de PIX→PJ tem ticket ≥ R$500 — naturalmente parcelável, exatamente onde o crédito agrega.</figcaption>
+      </figure>
+    </div>
+  </div>
+
+  <div class="callout">
+    <b>Prontidão da base (custo de aquisição ~zero):</b> dos 1.430 clientes que mandam PIX→PJ, <b>998 (70%) já têm cartão de crédito ativo</b>. O público jovem (18-29) movimenta <b>R$ 72k de PIX→PJ por cliente</b> — quase o dobro das demais faixas (~R$ 37–42k).
+  </div>
+
+  <h3>As três frentes</h3>
+
+  <div class="frente">
+    <div class="ftag">Frente 1 · Produto</div>
+    <h4>Cashback progressivo por volume de PIX no crédito</h4>
+    <p>Quanto mais o cliente usa o PIX no crédito, maior o cashback: <b>1% → 2% → 3%</b>. E o cashback <b>cai automaticamente na Reservinha</b> — criando hábito de investimento desde o primeiro PIX, sem esforço.</p>
+    <div class="loop"><b>Usa mais PIX crédito</b> → cashback sobe (1→2→3%) → <b>vira saldo na Reservinha</b></div>
+  </div>
+
+  <div class="frente">
+    <div class="ftag">Frente 2 · Aquisição</div>
+    <h4>Onboarding digital jovem</h4>
+    <p>Conta jovem com <b>abertura 100% digital (CPF + selfie)</b> e <b>PIX no crédito ativado no dia 1</b>. Ataca a maior lacuna da base — jovens são só 5,9% — justamente o público que mais adota o digital e que mais movimenta PIX→PJ por cliente.</p>
+    <div class="loop">Abertura CPF + selfie → <b>PIX crédito no dia 1</b> → entrar como banco do jovem 18-29</div>
+  </div>
+
+  <div class="frente">
+    <div class="ftag">Frente 3 · Retenção</div>
+    <h4>Reservinha como âncora de limite</h4>
+    <p>O loop que prende: <b>cashback → Reservinha → limite de PIX ampliado</b>. Quanto mais o cliente usa, mais saldo acumula, mais limite ganha. Saldo investido vira lastro de crédito — perder o relacionamento significa perder o limite.</p>
+    <div class="loop"><b>Cashback</b> → engorda a <b>Reservinha</b> → <b>limite de PIX crédito ampliado</b> → usa mais ↺</div>
+  </div>
+
+  <figure>
+    <img src="../notebooks/graficos/prod_investlimite.png" alt="Reservinha como âncora de limite">
+    <figcaption>Frente 3 em números: 669 clientes já são elegíveis (saldo ≥ R$1k) e o limite médio poderia saltar de <b>R$ 46,5k para R$ 83,6k</b> com a Reservinha como lastro.</figcaption>
+  </figure>
+</section>
+
+<!-- ===================== 6. PROJEÇÃO + PLANO + KPIs ===================== -->
+<section>
+  <div class="section-eyebrow">06 · Projeção financeira</div>
+  <h2>Quanto recupera — três cenários auditáveis</h2>
+
+  <p>A inversão cartão→PIX custa <b>≈ R$ 1,49 M/ano</b> (R$ 216k do colapso do cartão + R$ 1,27 M de intercâmbio que evapora no PIX→PJ). A plataforma é <b>grátis para o cliente</b>; a receita-core vem de intercâmbio recuperado, spread sobre AUM (Saldo Vivo) e juros/IOF do parcelado.</p>
+
+  <table class="avoid-break">
+    <thead><tr><th>Fonte (núcleo gratuito) — receita incremental / ano</th><th class="num">Pessimista</th><th class="num">Neutro</th><th class="num">Otimista</th></tr></thead>
+    <tbody>
+      <tr><td>Intercâmbio recuperado</td><td class="num">R$ 95,6k</td><td class="num">R$ 286,7k</td><td class="num">R$ 538,3k</td></tr>
+      <tr><td>Spread sobre AUM (Saldo Vivo)</td><td class="num">R$ 35,3k</td><td class="num">R$ 185,2k</td><td class="num">R$ 614,7k</td></tr>
+      <tr><td>Juros/IOF parcelado (PIX no crédito)</td><td class="num">R$ 11,9k</td><td class="num">R$ 89,4k</td><td class="num">R$ 302,2k</td></tr>
+      <tr class="hl"><td><b>CORE (grátis) / ano</b></td><td class="num">R$ 143k</td><td class="num">R$ 561k</td><td class="num">R$ 1,46M</td></tr>
+      <tr><td><b>% da perda reposta (só o core)</b></td><td class="num">10%</td><td class="num">38%</td><td class="num up">98%</td></tr>
+    </tbody>
+  </table>
+
+  <div class="two-col">
+    <div>
+      <figure style="margin-top:0;">
+        <img src="../notebooks/graficos/prod_receita.png" alt="Receita do PIX no crédito por conversão">
+        <figcaption>Receita do PIX no crédito por nível de conversão do PIX→PJ: converter 20/30/50% rende <b>+R$ 129k / 193k / 322k</b> líquidos por trimestre.</figcaption>
+      </figure>
+    </div>
+    <div>
+      <div class="callout orange" style="margin-top:0;">
+        <b>O AUM é a alavanca de maior elasticidade.</b> No neutro, o spread sobre AUM (R$ 185k) já rivaliza com o intercâmbio recuperado — receita recorrente que o banco não tinha. Por isso o Saldo Vivo é o coração do motor.
+      </div>
+      <div class="callout navy">
+        <b>Conclusão robusta:</b> em qualquer ponto razoável da faixa, a solução gera receita nova relevante numa base que <b>já é 73% digital</b>. Com o upside premium opcional, o otimista chega a <b>110% da perda</b>.
+      </div>
+    </div>
+  </div>
+
+  <h3>Plano de ação — motor primeiro, produtos em cima</h3>
+
+  <div class="phase">
+    <div class="stripe"></div>
+    <div class="body">
+      <div class="when">Fase 0 · 0–3 meses · o motor</div>
+      <h4>Reagir à queda</h4>
+      <p>Provisionar a carteira tokenizada (Apple/Google Pay); lançar o <b>Saldo Vivo</b> (estanca a fuga de AUM); <b>Autopilot v1</b> e <b>Score v1</b>. <small><b>KPIs:</b> adoção de carteira · PIX→PJ retido · queda nos resgates.</small></p>
+    </div>
+  </div>
+
+  <div class="phase p1">
+    <div class="stripe"></div>
+    <div class="body">
+      <div class="when">Fase 1 · 3–6 meses · Produto 1</div>
+      <h4>Cartão Digital — crescer no território PIX-proof</h4>
+      <p>Tokenização/1-clique, cartão virtual, central de recorrência e cashback por canal; reativação dos 469 cartões parados e renovação proativa. <small><b>KPIs:</b> adoção de carteira · % CNP · cartões <em>ativos</em> por cliente.</small></p>
+    </div>
+  </div>
+
+  <div class="phase p2">
+    <div class="stripe"></div>
+    <div class="body">
+      <div class="when">Fase 2 · 6–12 meses · Produto 2</div>
+      <h4>PIX no Crédito — 3 frentes + aquisição jovem</h4>
+      <p>Cashback progressivo→Reservinha, onboarding jovem digital e Reservinha como âncora de limite; captação do público 18-29. <small><b>KPIs:</b> PIX→PJ convertido · novos clientes jovens · AUM na Reservinha · NPS (mirar Lux = 82).</small></p>
+    </div>
+  </div>
+
+  <h3>Painel de KPIs e riscos</h3>
+  <div class="two-col">
+    <div>
+      <table class="avoid-break">
+        <thead><tr><th>KPI</th><th class="num">Hoje</th><th class="num">Meta</th></tr></thead>
+        <tbody>
+          <tr class="hl"><td>Market share (valor)</td><td class="num">19%</td><td class="num">30%</td></tr>
+          <tr><td>Adoção carteira digital</td><td class="num">~14%</td><td class="num">&gt;70%</td></tr>
+          <tr><td>Intercâmbio / tri</td><td class="num">~R$ 100k</td><td class="num">R$ 358k+</td></tr>
+          <tr><td>Clientes 18-29</td><td class="num">5,9%</td><td class="num">18%</td></tr>
+          <tr><td>NPS</td><td class="num">? (medir)</td><td class="num">72</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <table class="avoid-break">
+        <thead><tr><th>Risco</th><th>Mitigação</th></tr></thead>
+        <tbody>
+          <tr><td>Adoção trava</td><td>Opt-in com capital preservado + FGC</td></tr>
+          <tr><td>Concorrente copia</td><td>Barreira é o ciclo dado+AUM+Score acumulado</td></tr>
+          <tr><td>Risco de crédito (PIX)</td><td>Frente 3: limite lastreado na Reservinha</td></tr>
+          <tr><td>Empurrar cartões sem uso</td><td>Métrica é cartão <em>ativo</em>, não emitido</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="callout navy">
+    <b>Mensagem para a banca:</b> "Perdemos share porque o valor fugiu para um cano que não monetizamos. Primeiro ligamos o <b>motor</b> que reinveste o dinheiro e recupera o fluxo. Depois crescemos o <b>cartão onde o PIX não chega</b> e melhoramos o <b>PIX no crédito onde ele já está</b> — com cashback que vira investimento. Reagimos à queda e voltamos a crescer."
+  </div>
+
+  <p style="margin-top:14px;font-size:8.5pt;color:var(--muted);">
+    <b>Fontes:</b> análise exploratória da base Priceless Bank (1.960 clientes · 156.826 transações · 278.940 PIX · 21.200 investimentos), <code>notebooks/main.ipynb</code> e <code>parte2_cartao_digital.ipynb</code> · Benchmarking Mastercard Challenge 2026 · BACEN — Regulamentação Pix Parcelado (nov/2025). Intercâmbio: 1,8% crédito / 0,6% débito (teto BACEN).
+  </p>
+  <p style="margin-top:10px;font-size:8pt;color:#9a9aa8;text-align:center;border-top:1px solid var(--line);padding-top:12px;">
+    Priceless Bank · Mastercard Challenge 2026 · Inteli — Junho 2026 · Documento de uso interno<br>
+    Diagnóstico: <code>docs/analise-exploratoria.md</code> · Motor: <code>docs/propostas-solucao.md</code> · Cartão Digital: <code>docs/cartao-digital.md</code>
+  </p>
+</section>
+
+</body>
+</html>
