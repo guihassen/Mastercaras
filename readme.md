@@ -89,7 +89,7 @@ pip install -r requirements.txt
 
 ### 2. Rodar as análises
 
-Abra os notebooks da pasta `notebooks/` no Jupyter ou no VS Code. O `main.ipynb` é o ponto de partida e gera a maior parte dos gráficos usados na documentação.
+Abra os notebooks da pasta `notebooks/` no Jupyter ou no VS Code. O `main.ipynb` é o ponto de partida (EDA, faixa etária e projeção de receita); o `analise_cartao.ipynb` gera os gráficos do diagnóstico cartão × Pix (`A1`–`B4`) e o `publico_alvo.ipynb` cobre o público-alvo e o mercado do Pix no crédito (`prod_*`). Juntos, produzem os gráficos usados na documentação, salvos em `notebooks/graficos/`.
 
 ### 3. Gerar o relatório em PDF
 
