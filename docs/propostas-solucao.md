@@ -2,6 +2,8 @@
 **Mastercard Challenge 2026 | Data: 13/06/2026**
 
 > Documento derivado do diagnóstico em [`analise-exploratoria.md`](analise-exploratoria.md). Converge as ideias exploradas (Autopilot, rendimento até o débito, relacionamento) em **um único produto pé no chão** e fecha com o **plano de ação para recuperar e ganhar market share** — o foco do desafio.
+>
+> **Este produto (Priceless Pay) é o Motor** — o passo 1 do ecossistema completo do grupo. Ao final do documento, ele se integra às outras duas frentes (Cartões Digitais e PIX no Crédito) na seção **[O Ecossistema Completo — As 3 Frentes](#o-ecossistema-completo--as-3-frentes-motor--expandir--captar)**.
 
 ---
 
@@ -134,7 +136,7 @@ A Helena pode cadastrar **metas** (ex.: "Viagem 2027 — R$8.000", "Reserva de e
 |-----------|------|------|
 | Adoção de carteira digital na base | ~14% | >60% |
 | Fluxo diário capturado no ecossistema Priceless | Vaza como PIX cego | Maioria dos ~35 mil PIX/tri |
-| Intercâmbio recuperado (crédito à vista) | ~R$100k/tri | Rumo aos R$358k/tri de oportunidade |
+| Intercâmbio recuperado (crédito à vista) | ~R$95k/tri | Rumo aos R$382k/tri de oportunidade |
 | AUM total (Saldo Vivo) | Em fuga (resgate recorde 2025Q4); só a parte poupada rende | Todo o saldo vira AUM; crescente e estável |
 
 ---
@@ -151,7 +153,7 @@ A Helena pode cadastrar **metas** (ex.: "Viagem 2027 — R$8.000", "Reserva de e
 | **Taxa ponderada do portfólio** | **1,60%** | Split real de volume: **83,6% crédito / 16,4% débito** |
 | Ticket-base normalizado | R$ 614 | Mediana 2023/2025 (neutraliza a anomalia de ticket de 2024) |
 | Base de clientes | 1.960 | `Base_clientes` |
-| PIX→PJ (run-rate) | R$ 19,87M/tri (2025Q4) | `Base_pix` |
+| PIX→PJ (run-rate) | R$ 17,91M/tri (2025Q4) | `Base_pix` (dados limpos: Aprovado=1, Valor>0, Data notna) |
 
 ### Parte 1 — Dimensão da perda de faturamento
 
@@ -160,10 +162,10 @@ A inversão cartão→PIX corrói o faturamento de intercâmbio por **dois camin
 | Componente | Cálculo | Perda/ano |
 |------------|---------|-----------|
 | **1. Colapso do intercâmbio de cartão** | 2024Q4 normalizado (R$ 148,8k/tri) → 2025Q4 real (R$ 94,9k/tri) = **−R$ 53,9k/tri** | **R$ 215,7k** |
-| **2. Oportunidade não capturada no PIX→PJ** | R$ 19,87M/tri × 1,60% (intercâmbio que seria faturado se fosse cartão) | **R$ 1.274,1k** |
-| **PERDA TOTAL DE FATURAMENTO** | | **≈ R$ 1,49M/ano** |
+| **2. Oportunidade não capturada no PIX→PJ** | R$ 17,91M/tri × 1,60% (intercâmbio que seria faturado se fosse cartão; PIX aprovados efetivos) | **R$ 1.149k** |
+| **PERDA TOTAL DE FATURAMENTO** | | **≈ R$ 1,36M/ano** |
 
-> O grosso da perda **não é** a queda do cartão (R$ 216k/ano) — é o **R$ 1,27M/ano de intercâmbio que evapora** porque o consumo migrou para o PIX→PJ, onde o intercâmbio é zero. Em 2025Q4, o banco fatura ~R$ 95k de intercâmbio de cartão enquanto deixa ~R$ 319k/tri na mesa no PIX→PJ. Captura apenas **~23%** do intercâmbio de transação que tem ao seu alcance.
+> O grosso da perda **não é** a queda do cartão (R$ 216k/ano) — é o **R$ 1,15M/ano de intercâmbio que evapora** porque o consumo migrou para o PIX→PJ, onde o intercâmbio é zero. Em 2025Q4, o banco fatura ~R$ 95k de intercâmbio de cartão enquanto deixa ~R$ 287k/tri na mesa no PIX→PJ. Captura apenas **~25%** do intercâmbio de transação que tem ao seu alcance.
 
 ![Dimensão da perda](recuperacao_perda.png)
 
@@ -187,14 +189,14 @@ Com a **plataforma gratuita**, a receita-**core** vem de três vias que **não s
 
 | Fonte (core grátis) | Pessimista | Neutro | Otimista |
 |---------------------|-----------:|-------:|---------:|
-| Intercâmbio recuperado | R$ 95,6k | R$ 286,7k | R$ 538,3k |
+| Intercâmbio recuperado | R$ 86,2k | R$ 258,5k | R$ 485,4k |
 | Spread sobre AUM | R$ 35,3k | R$ 185,2k | R$ 614,7k |
-| Juros/IOF parcelado | R$ 11,9k | R$ 89,4k | R$ 302,2k |
-| **CORE (grátis) / ano** | **R$ 143k** | **R$ 561k** | **R$ 1,46M** |
-| **% da perda reposta (só com o core)** | **10%** | **38%** | **98%** |
+| Juros/IOF parcelado | R$ 10,7k | R$ 80,6k | R$ 272,5k |
+| **CORE (grátis) / ano** | **R$ 132k** | **R$ 524k** | **R$ 1,37M** |
+| **% da perda reposta (só com o core)** | **10%** | **38%** | **101%** |
 | AUM sob gestão (Saldo Vivo) | R$ 3,5M | R$ 12,3M | R$ 30,7M |
 | *(+) Premium opcional (upside)* | *+R$ 29,4k* | *+R$ 70,6k* | *+R$ 176,4k* |
-| *Total com upside* | *R$ 172k* | *R$ 632k* | *R$ 1,63M* |
+| *Total com upside* | *R$ 162k* | *R$ 595k* | *R$ 1,55M* |
 
 ![Projeção dos 3 cenários](projecao_cenarios.png)
 
@@ -208,7 +210,7 @@ Cada cenário é a soma de fórmulas simples; todos os parâmetros estão no not
 4. *(upside)* **Premium** = nº de clientes × % assinantes × mensalidade × 12
 
 **Valores-base (extraídos dos dados):**
-- **PIX→PJ anual = R$ 79,47M** → run-rate de 2025Q4 (R$ 19,87M) × 4. Usar só o Q4 é conservador: não projeta o crescimento que já vinha acontecendo (Q3→Q4 foi +47%).
+- **PIX→PJ anual = R$ 71,66M** → run-rate de 2025Q4 (R$ 17,91M, PIX aprovados efetivos) × 4. Usar só o Q4 é conservador: não projeta o crescimento que já vinha acontecendo (Q3→Q4 foi +47%).
 - **Intercâmbio = 1,60%** → calculado do split real de volume (83,6% crédito × 1,8% + 16,4% débito × 0,6%).
 - **Nº de clientes = 1.960** (`Base_clientes`).
 
@@ -226,10 +228,10 @@ Cada cenário é a soma de fórmulas simples; todos os parâmetros estão no not
 | Margem líq. parcelado | 4 / 5 / 6% | Juros/IOF líquidos de funding e risco |
 
 **Exemplo completo — cenário Neutro:**
-- Intercâmbio: R$ 79,47M × 45% × 50% × 1,60% = **R$ 286,7k**
+- Intercâmbio: R$ 71,66M × 45% × 50% × 1,60% = **R$ 258,5k**
 - Spread AUM: 1.960 × 50% × 70% × R$ 18k = R$ 12,35M sob gestão × 1,5% = **R$ 185,2k**
-- Parcelado: (R$ 79,47M × 45% × 50%) × 10% × 5% = R$ 17,88M × 0,5% = **R$ 89,4k**
-- **Core = 286,7 + 185,2 + 89,4 = R$ 561,3k/ano** (38% da perda) · *(+ premium opcional R$ 70,6k)*
+- Parcelado: (R$ 71,66M × 45% × 50%) × 10% × 5% = R$ 16,12M × 0,5% = **R$ 80,6k**
+- **Core = 258,5 + 185,2 + 80,6 = R$ 524,3k/ano** (38% da perda) · *(+ premium opcional R$ 70,6k)*
 
 #### Defesa das premissas e sensibilidade (a pergunta da banca)
 Não defendemos um número pontual — defendemos um **intervalo** e a **robustez da conclusão**. Cada premissa tem três camadas: **âncora interna** (nos dados), **âncora externa** (análogos de mercado) e **conservadorismo** explícito. Exemplo da adesão (30/50/70%):
@@ -242,7 +244,7 @@ Não defendemos um número pontual — defendemos um **intervalo** e a **robuste
 
 ![Sensibilidade](sensibilidade.png)
 
-- **Isolando só a adesão** (demais alavancas no neutro, captura = adesão): 30% → repõe **24%**; 50% → **40%**; 70% → **57%**. Precisaríamos de **~62% de adesão** para repor 50% só com essa alavanca.
+- **Isolando só a adesão** (demais alavancas no neutro, captura = adesão): 30% → repõe **25%**; 50% → **41%**; 70% → **58%**. Precisaríamos de **~61% de adesão** para repor 50% só com essa alavanca.
 - Os **cenários da tabela combinam a adesão com as outras alavancas** (spread, saldo, conversão) — por isso o otimista chega a 98%/110%. O *heatmap* adesão × spread mostra esse efeito conjunto.
 - **A conclusão é robusta:** em **qualquer** ponto razoável da faixa a solução gera receita nova relevante que o banco não tinha. A discussão deixa de ser "o 50% está certo?" e vira "você acredita que batemos X% de adesão numa base que já é 73% digital?".
 
@@ -250,14 +252,14 @@ Não defendemos um número pontual — defendemos um **intervalo** e a **robuste
 
 ![Adesão × Faturamento e Adesão × Spread](adesao_faturamento.png)
 
-- **Adesão × faturamento** (spread neutro 1,5%, captura = adesão): **30% → R$ 362k · 50% → R$ 603k · 70% → R$ 844k** de receita-core nova por ano. Cresce de forma praticamente linear com a adesão — sem teto à vista.
-- **Adesão × spread** (a 50% de adesão): cada **+0,5 p.p. de spread adiciona ~R$ 62k/ano** (1,0% → R$ 541k · 1,5% → R$ 603k · 2,0% → R$ 665k · 2,5% → R$ 727k). Confirma que **adesão e spread são as duas alavancas dominantes** — e ambas são gerenciáveis pelo banco.
+- **Adesão × faturamento** (spread neutro 1,5%, captura = adesão): **30% → R$ 337k · 50% → R$ 561k · 70% → R$ 786k** de receita-core nova por ano. Cresce de forma praticamente linear com a adesão — sem teto à vista.
+- **Adesão × spread** (a 50% de adesão): cada **+0,5 p.p. de spread adiciona ~R$ 62k/ano** (1,0% → R$ 500k · 1,5% → R$ 561k · 2,0% → R$ 623k · 2,5% → R$ 685k). Confirma que **adesão e spread são as duas alavancas dominantes** — e ambas são gerenciáveis pelo banco.
 
 ### Leitura — a virada de jogo em números
-- **A plataforma grátis se sustenta sozinha:** mesmo **sem cobrar nada do cliente**, o core repõe **38% da perda no neutro** e **98% no otimista** — só com intercâmbio + AUM + parcelado.
+- **A plataforma grátis se sustenta sozinha:** mesmo **sem cobrar nada do cliente**, o core repõe **38% da perda no neutro** e **101% no otimista** — só com intercâmbio + AUM + parcelado.
 - **O AUM é a alavanca de maior elasticidade.** No neutro o **spread sobre AUM (R$ 185k)** já rivaliza com o intercâmbio recuperado — receita recorrente e pegajosa que o banco **não tinha antes**. Cada R$ 1k de saldo médio e cada 0,5 p.p. de spread movem a agulha → por isso o **Saldo Vivo é o coração da solução**.
 - **A gratuidade puxa a adesão para cima**, e adesão alimenta os dois motores invisíveis (intercâmbio + AUM). Como a diferença pessimista→otimista é ~10×, **trocar mensalidade por adesão é o negócio certo**: o resultado esperado tende ao topo da faixa.
-- **Com o upside premium opcional**, o otimista chega a R$ 1,63M (**110% da perda**) — o banco sai **mais lucrativo do que era antes da inversão**, com receita diversificada (AUM + intercâmbio), não refém do volume de cartão.
+- **Com o upside premium opcional**, o otimista chega a R$ 1,55M (**114% da perda**) — o banco sai **mais lucrativo do que era antes da inversão**, com receita diversificada (AUM + intercâmbio), não refém do volume de cartão.
 
 ---
 
@@ -279,7 +281,7 @@ Perdemos share porque o **valor migrou para o PIX** — que tem intercâmbio zer
 - **KPIs:** % da base ativa no Priceless Pay; volume de PIX→PJ retido no ecossistema; queda nos resgates.
 
 ### Fase 1 — Recuperação (3–6 meses) · *recuperar receita e clientes*
-- **Cashback por score** + migração suave de à-vista-PIX → crédito à vista → **recuperar intercâmbio** (alvo: dos ~R$100k/tri rumo aos R$358k/tri de oportunidade).
+- **Cashback por score** + migração suave de à-vista-PIX → crédito à vista → **recuperar intercâmbio** (alvo: dos ~R$95k/tri rumo aos R$382k/tri de oportunidade).
 - **Renovação proativa** dos cartões vencendo e **reativação** dos 469 cartões parados (régua + bônus de 1ª compra).
 - **Reconquista** dos 87 inativos e conversão das 85 contas-fantasma (onboarding com missões).
 - **Escada de adoção** (ver seção dedicada): ofertas de cartão lastreadas no gasto real para o segmento de 1–2 cartões (49% da base).
@@ -343,6 +345,51 @@ O **Saldo Vivo muda a escala do modelo:** ao transformar *todo* o saldo do clien
 
 ---
 
+## O Ecossistema Completo — As 3 Frentes (Motor → Expandir → Captar)
+
+> A proposta final do grupo. O Priceless Pay (todo este documento) é o **Motor**; duas frentes se acoplam a ele formando um ecossistema em **três passos**. Fontes: Parte 2 em [`cartao-digital.md`](cartao-digital.md) · Parte 3 em [`proposta_priceless_bank.md`](proposta_priceless_bank.md). Projeções em `main.ipynb` (Seção 15).
+
+A lógica em três passos — **aditivos, em pools distintos** (sem dupla contagem):
+
+| Passo | Frente | Papel | Pool de receita |
+|-------|--------|-------|-----------------|
+| **1 · FATURAR** | **Motor — Priceless Pay** | Estancar a perda e recuperar o faturamento | Fluxo PIX→PJ recuperado + AUM (Saldo Vivo) |
+| **2 · EXPANDIR LEQUE** | **Cartões Digitais** | Crescer o cartão onde o PIX não entra | Online/CNP + recorrência + internacional |
+| **3 · CAPTAR NOVA BASE** | **PIX no Crédito + ataque à LuminaPay** | Adquirir base jovem 18-30 | Novos clientes (juros/spread + intercâmbio) |
+
+### Passo 1 — Faturar (o Motor)
+Tudo que está acima neste documento. Recupera o faturamento que a inversão cartão→PIX corrói, via Saldo Vivo + Autopilot + Score. **Papel: defensivo** — para de sangrar e repõe a perda. **Projeção: R$ 132k → R$ 524k → R$ 1,37M/ano** (10% → 101% da perda).
+
+### Passo 2 — Expandir o leque (Cartões Digitais)
+**Tese:** parar de brigar pelo presencial (que o PIX já venceu — 3,4× o cartão em 2025Q4) e crescer o cartão nos territórios **PIX-proof**: online/CNP (30% do volume, ~R$ 11M/ano), recorrência (9.262 transações), internacional e carteira digital (hoje só **14%**). 
+**Como conecta ao Motor:** usa a **mesma credencial tokenizada**, o **Autopilot** (cashback por canal) e o **Score**. A tokenização/wallet é a *alavanca-mãe* que serve as duas frentes ao mesmo tempo. 
+**Projeção** (intercâmbio incremental sobre o volume CNP; crescimento 20% / 45% / 80%): **R$ 40k → R$ 89k → R$ 158k/ano**. *Conservador (usa 1,8%; o prêmio de intercâmbio CNP/internacional é upside). Frente prospectiva — exige piloto/A-B.*
+
+### Passo 3 — Captar nova base (PIX no Crédito + ataque à LuminaPay)
+**Tese:** o Motor e o Cartão Digital cuidam da base atual (madura, affluent); falta atacar a lacuna onde a **LuminaPay** cresce — o **público jovem 18-30** (hoje só 5,9% da base). PIX no crédito (regulamentado pelo BC em nov/2025) + cashback progressivo (1%→3%) → Reservinha → limite, com onboarding 100% digital. 
+**Como conecta ao Motor:** o cashback cai no **Saldo Vivo/Reservinha**, o **Score** vira limite de PIX-crédito — o mesmo ciclo econômico do Motor, agora alimentando **aquisição**. 
+**Projeção** (contas novas 5k / 20k / 50k × gasto anual monetizado × take de intercâmbio+juros líquido de risco): **R$ 0,4M → R$ 3,0M → R$ 13,5M/ano**. *Frente de maior incerteza **e** maior potencial — escalonada em fases trimestrais com validação por piloto (roadmap no doc de origem).*
+
+### Resultado do Ecossistema — receita incremental anual
+
+| Frente | Pessimista | Neutro | Otimista |
+|--------|-----------:|-------:|---------:|
+| 1 · Motor (faturar) | R$ 132k | R$ 524k | R$ 1,37M |
+| 2 · Cartões Digitais (expandir) | R$ 40k | R$ 89k | R$ 158k |
+| 3 · PIX Crédito + base jovem (captar) | R$ 400k | R$ 3,00M | R$ 13,50M |
+| **TOTAL / ano** | **R$ 0,57M** | **R$ 3,61M** | **R$ 15,0M** |
+| **vs. perda anual (R$ 1,36M)** | **42%** | **265%** | **1.102%** |
+
+![Projeção do ecossistema](projecao_ecossistema.png)
+
+**Leitura — de recuperação a crescimento:**
+- O **Motor sozinho** estanca a hemorragia (passo defensivo).
+- **+ Cartões Digitais** diversifica a receita para o território PIX-proof, sem depender do presencial em queda.
+- **+ PIX no Crédito + base jovem** vira a chave: o ecossistema deixa de ser recuperação e passa a **crescimento** — no neutro já gera **2,5× a perda**, no otimista **~10×**, porque adquirir uma nova base (até 50k contas vs. 1.960 atuais) é alavanca de outra ordem de grandeza.
+- Os três passos compartilham a **mesma infraestrutura** (Saldo Vivo, Score, credencial tokenizada, ciclo econômico). Não são três produtos soltos — são **um ecossistema** em que cada passo alimenta o seguinte.
+
+---
+
 ## Por Que Nos Torna Líderes
 Os concorrentes disputam o **meio de pagamento** (PIX no crédito, invest→limite). O Priceless Pay disputa algo que ninguém olha: **a inteligência que serve a rotina do cliente e o ciclo econômico que se autofinancia por trás dela.** A Helena não escolhe um meio de pagamento — ela escolhe um banco que cuida do dinheiro dela melhor do que ela mesma cuidaria, em cada um dos ~3 pagamentos do dia.
 
@@ -352,10 +399,33 @@ Os concorrentes disputam o **meio de pagamento** (PIX no crédito, invest→limi
 1. **Diagnóstico (1 min):** valor migrou para o PIX cego → caímos de 33% para 19%.
 2. **A virada (1,5 min):** Priceless Pay — pagamento pelo celular + Autopilot (sob as regras do cliente) + Saldo Vivo + Score + metas, com o exemplo da Helena.
 3. **Crédito × Débito e o modelo de receita (1 min):** plataforma **100% grátis** e ainda lucrativa — reconvertemos valor em receita **sem forçar dívida e sem cobrar nada do cliente** (intercâmbio invisível + spread de AUM + incentivos alinhados).
-4. **Os números e o plano (1,5 min):** a inversão custa **~R$ 1,49M/ano**; a solução repõe **42% (neutro)** a **110% (otimista)** disso — no otimista, o banco sai mais lucrativo do que antes da inversão. Fechar com Fase 0 → 1 → 2 e o ciclo econômico.
+4. **Os números e o plano (1,5 min):** a inversão custa **~R$ 1,36M/ano**; a solução repõe **44% (neutro)** a **114% (otimista)** disso — no otimista, o banco sai mais lucrativo do que antes da inversão. Fechar com Fase 0 → 1 → 2 e o ciclo econômico.
 
 ---
 
-*Documento gerado em 13/06/2026 | Atualizado em 14/06/2026 | Base: [`analise-exploratoria.md`](analise-exploratoria.md) e `main.ipynb` (Seção 14)*
-*Visualizações: `docs/recuperacao_perda.png`, `docs/projecao_cenarios.png`, `docs/sensibilidade.png`, `docs/adesao_faturamento.png`*
+## Conclusão — Os Ganhos do Ecossistema
+
+O Priceless Bank perdeu 14 p.p. de share porque o valor migrou para um cano que ele não monetizava nem enxergava, custando **~R$ 1,36M/ano** de faturamento. A resposta do grupo não é um produto — é um **ecossistema em três passos** que transforma a perda em plataforma de crescimento.
+
+**O que ganhamos, por ator:**
+
+- **Cliente:** paga sempre do melhor jeito sem esforço (Autopilot), com o dinheiro rendendo até o último segundo (Saldo Vivo), **zero taxa/anuidade**, controle total, metas que se pagam sozinhas e proteção — e, na frente jovem, entra num banco que já o trata como investidor desde o 1º PIX. Para a Helena, ≈ **R$ 70/mês** a mais no bolso.
+- **Banco:** recupera **intercâmbio + dado + AUM** (Motor), diversifica para receita PIX-proof e recorrente (Cartões Digitais) e **adquire uma nova base inteira** atacando a LuminaPay onde ela é forte (PIX no Crédito). Tudo sobre a **mesma infraestrutura** e o **mesmo ciclo econômico autofinanciado**.
+
+**Os ganhos, em números (receita incremental/ano):**
+
+| Cenário | Total ecossistema | vs. perda (R$ 1,36M) | Tradução |
+|---------|------------------:|:--------------------:|----------|
+| Pessimista | **R$ 0,57M** | 42% | já estanca boa parte da sangria, sem cobrar nada do cliente |
+| Neutro | **R$ 3,61M** | **265%** | repõe a perda **2,6×** — vira lucro novo |
+| Otimista | **R$ 15,0M** | **1.102%** | crescimento de outra ordem (nova base jovem) |
+
+**A trajetória de market share:** o passo 1 **estanca** a queda (33% → 19%), o passo 2 **defende** o terreno que sobra, e o passo 3 **reataca** — recuperando share da base atual e **conquistando** o público jovem da LuminaPay. De *perder share* para *liderar*.
+
+> **Tese final para a banca:** "Não entregamos um produto, entregamos um ecossistema. O Motor para de sangrar e recupera o faturamento; os Cartões Digitais crescem onde o PIX não entra; e o PIX no Crédito captura a base jovem que estávamos perdendo. Três passos, uma infraestrutura, um ciclo que se autofinancia — e que leva o Priceless de *perder share* a *recuperá-lo e voltar a crescer*."
+
+---
+
+*Documento gerado em 13/06/2026 | Atualizado em 14/06/2026 | Base: [`analise-exploratoria.md`](analise-exploratoria.md) e `main.ipynb` (Seções 14–15)*
+*Visualizações: `docs/recuperacao_perda.png`, `docs/projecao_cenarios.png`, `docs/sensibilidade.png`, `docs/adesao_faturamento.png`, `docs/projecao_ecossistema.png`*
 *Fluxo visual completo (Persona → Problema → Solução → Benefícios → Resultado): [`docs/fluxo-solucao.excalidraw`](fluxo-solucao.excalidraw) — abrir em [excalidraw.com](https://excalidraw.com) ou na extensão Excalidraw do VS Code*
