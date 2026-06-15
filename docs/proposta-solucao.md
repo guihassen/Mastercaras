@@ -167,10 +167,10 @@ E não é um fluxo de compras miúdas. **69% do volume de Pix PJ** tem ticket de
 
 ### A base já está pronta
 
-A melhor parte: o custo para conquistar esse cliente é perto de zero, porque ele já está dentro de casa. Dos 1.430 clientes que mandam Pix para empresas, **998 (70%) já têm cartão de crédito ativo**. E o público jovem, que é o que mais usa o digital, movimenta R$ 72 mil de Pix PJ por cliente, quase o dobro das outras faixas.
+A melhor parte: o custo para conquistar esse cliente é perto de zero, porque ele já está dentro de casa. Dos 1.430 clientes que mandam Pix para empresas, **998 (70%) já têm cartão de crédito ativo**. E o público jovem, que é o que mais usa o digital, movimenta R$ 68 mil de Pix PJ por cliente, quase o dobro das outras faixas (R$ 36 a 45 mil).
 
 ![Prontidão da base](../notebooks/graficos/prod_crosssell.png)
-*Sete em cada dez clientes que mandam Pix PJ já têm crédito ativo, e o jovem 18 a 29 movimenta R$ 72 mil por pessoa.*
+*Sete em cada dez clientes que mandam Pix PJ já têm crédito ativo, e o jovem 18 a 29 movimenta R$ 68 mil por pessoa.*
 
 ### As três frentes
 
@@ -206,10 +206,10 @@ flowchart LR
     style B fill:#F79E1B,color:#000
 ```
 
-O número apoia a ideia: **669 clientes já têm saldo suficiente** (acima de R\$ 1 mil) para servir de lastro, e o limite médio deles poderia saltar de R\$ 46,5 mil para R$ 83,6 mil.
+O número apoia a ideia: **634 clientes já têm saldo suficiente** (acima de R\$ 1 mil) na Reservinha e cartão para servir de lastro, e o limite médio deles poderia saltar de R\$ 43,6 mil para R$ 79,5 mil.
 
 ![Reservinha vira limite](../notebooks/graficos/prod_investlimite.png)
-*Com a Reservinha como lastro, o limite médio dos elegíveis quase dobra, de R$ 46,5 mil para R$ 83,6 mil.*
+*Com a Reservinha como lastro, o limite médio dos elegíveis quase dobra, de R$ 43,6 mil para R$ 79,5 mil.*
 
 ---
 
