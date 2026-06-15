@@ -72,19 +72,19 @@ A ideia é ligar o motor sem depender de produto novo, usando o que o cliente j�
 
 ## 3. Quanto isso recupera
 
-Primeiro, o tamanho da perda. A virada do cartão para o Pix custa cerca de **R\$ 1,49 milhão por ano**, somando duas coisas: a queda do intercâmbio de cartão (R\$ 216 mil) e, principalmente, o intercâmbio que evapora no Pix PJ (R$ 1,27 milhão).
+Primeiro, o tamanho da perda. A virada do cartão para o Pix custa cerca de **R\$ 1,51 milhão por ano**, somando duas coisas: a queda do intercâmbio de cartão (R\$ 216 mil) e, principalmente, o intercâmbio que evapora no Pix PJ (R$ 1,29 milhão — os R\$ 17,9 milhões de Pix PJ aprovados em 2025Q4, anualizados, à taxa de crédito de 1,8%).
 
 Agora a recuperação. Como a plataforma é gratuita, a receita vem de três fontes que não cobram nada do cliente: intercâmbio recuperado, spread sobre o saldo aplicado e juros do parcelado. Montamos três cenários, do mais cauteloso ao mais otimista.
 
 | Fonte de receita nova por ano | Pessimista | Neutro | Otimista |
 |---|---:|---:|---:|
-| Intercâmbio recuperado | R$ 95,6 mil | R$ 286,7 mil | R$ 538,3 mil |
+| Intercâmbio recuperado | R$ 96,7 mil | R$ 290,2 mil | R$ 544,9 mil |
 | Spread sobre o saldo (Saldo Vivo) | R$ 35,3 mil | R$ 185,2 mil | R$ 614,7 mil |
-| Juros do parcelado (Pix no crédito) | R$ 11,9 mil | R$ 89,4 mil | R$ 302,2 mil |
-| **Total por ano** | **R$ 143 mil** | **R$ 561 mil** | **R$ 1,46 milhão** |
-| **Quanto repõe da perda** | **10%** | **38%** | **98%** |
+| Juros do parcelado (Pix no crédito) | R$ 10,7 mil | R$ 80,6 mil | R$ 272,5 mil |
+| **Total por ano** | **R$ 143 mil** | **R$ 556 mil** | **R$ 1,43 milhão** |
+| **Quanto repõe da perda** | **9%** | **37%** | **95%** |
 
-Olhando só a parte do Pix no crédito, dá para ver como a conversão move o resultado: converter 20%, 30% ou 50% do Pix PJ gera, respectivamente, R\$ 129 mil, R\$ 193 mil e R$ 322 mil líquidos por trimestre.
+Olhando só a parte do Pix no crédito, dá para ver como a conversão move o resultado: converter 20%, 30% ou 50% do Pix PJ gera, respectivamente, R\$ 129 mil, R\$ 193 mil e R$ 322 mil líquidos por trimestre (intercâmbio de 1,8% mais uma margem de crédito de 1,8%, esta última uma premissa a calibrar em piloto).
 
 ![Receita do Pix no crédito por conversão](../notebooks/graficos/prod_receita.png)
 *Quanto mais Pix PJ convertido em crédito, maior a receita líquida por trimestre.*
@@ -171,6 +171,6 @@ flowchart LR
 - **Problema:** caímos de 33% para 19% de share porque o dinheiro foi para o Pix (que o banco não monetiza nem enxerga) e a base esfriou.
 - **Solução:** um motor (Autopilot e Saldo Vivo) que reage à queda, mais dois produtos (Cartão Digital e Pix no Crédito) que voltam a crescer.
 - **Sequência:** o motor primeiro, porque estanca a sangria sem depender de produto novo. Depois o Cartão Digital, que cresce onde o Pix não vai. Por fim o Pix no Crédito, que captura o fluxo onde o Pix já está.
-- **Números:** a perda é de cerca de R$ 1,49 milhão por ano, e só a parte gratuita da solução repõe de 38% (neutro) a 98% (otimista) disso.
+- **Números:** a perda é de cerca de R$ 1,51 milhão por ano, e só a parte gratuita da solução repõe de 37% (neutro) a 95% (otimista) disso.
 - **Por que vencemos:** os concorrentes brigam pelo meio de pagamento. A gente briga pela rotina do cliente, com um ciclo de dinheiro que se paga sozinho. Sem maquininha nova, em cima do Apple Pay e do Pix que já existem.
 
