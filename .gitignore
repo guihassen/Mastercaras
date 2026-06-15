@@ -5,3 +5,5 @@ __pycache__/
 *.png
 # logos do projeto devem ir para o repositório (usados no README)
 !assets/*.png
+# gráficos gerados pelos notebooks são embutidos nos docs e no relatório
+!notebooks/graficos/*.png
