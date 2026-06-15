@@ -199,9 +199,10 @@ Onde aparece "design", é comportamento esperado do sistema, não erro.
 | Com investimentos | 1.003 | 51% |
 | Transações e Pix ao mesmo tempo | 1.056 | 54% |
 | Transações, Pix e investimentos | 534 | 27% |
-| Sem nenhuma atividade registrada | cerca de 529 | cerca de 27% |
+| Sem transação de cartão (podem ter Pix/investimento) | 529 | 27% |
+| Sem nenhuma atividade em base alguma | 85 | 4,3% |
 
-**Achado importante:** 27% dos clientes não aparecem em nenhuma base de transação. Podem ser clientes novos, inativos ou com dados faltando, e merecem uma investigação.
+**Achado importante:** 27% dos clientes (529) não têm transação de cartão, mas a maioria ainda usa Pix ou investe. Só **85 (4,3%)** não aparecem em base nenhuma — são as "contas fantasma" detalhadas na seção 14. Os dois grupos merecem investigação de ativação.
 
 ---
 
@@ -233,12 +234,12 @@ Onde aparece "design", é comportamento esperado do sistema, não erro.
 
 | Faixa | Clientes |
 |-------|----------|
-| 18-29 | cerca de 170 |
-| 30-39 | cerca de 290 |
-| 40-49 | cerca de 380 |
-| 50-59 | cerca de 400 |
-| 60-69 | cerca de 420 |
-| 70+ | cerca de 300 |
+| 18-29 | 115 |
+| 30-39 | 279 |
+| 40-49 | 578 |
+| 50-59 | 562 |
+| 60-69 | 336 |
+| 70+ | 90 |
 
 ### Distribuição de cartões por cliente
 
@@ -288,7 +289,7 @@ Onde aparece "design", é comportamento esperado do sistema, não erro.
 
 **2. 469 cartões sem nenhuma transação (11,7%).** Foram emitidos, estão na base, mas nunca foram usados. A distribuição é Black (124), Gold (118), Platinum (114) e Standard (110). É um sinal forte de não engajamento depois da emissão, e um bom previsor de churn.
 
-**3. 1.017 cartões vencidos (28,5% dos que têm validade).** A validade já passou em relação a junho de 2026. Não é erro, mas pode indicar cartões não renovados, ou seja, possível churn.
+**3. 1.018 cartões vencidos (28,5% dos que têm validade).** A validade já passou em relação a junho de 2026. Não é erro, mas pode indicar cartões não renovados, ou seja, possível churn.
 
 ---
 
@@ -574,18 +575,18 @@ Cruzando a base de clientes com a de Pix dá para entender quem usa Pix, com que
 
 | Faixa | Pix por cliente | Cartão por cliente | Razão Pix sobre cartão | Vol. Pix/cliente | Vol. cartão/cliente | Mediana Pix |
 |-------|-----------|--------------|----------------------|------------|----------------|-------------|
-| **18-29** | **438** | **119** | **3,7 vezes** | **R$ 153k** | R$ 107k | R$ 188 |
-| 30-39 | 181 | 107 | 1,7 vezes | R$ 76k | R$ 98k | R$ 191 |
-| 40-49 | 180 | 107 | 1,7 vezes | R$ 78k | R$ 97k | R$ 192 |
-| 50-59 | 181 | 112 | 1,6 vezes | R$ 79k | R$ 104k | R$ 203 |
-| 60-69 | 171 | 114 | 1,5 vezes | R$ 74k | R$ 103k | R$ 197 |
-| **70+** | **194** | **97** | **2,0 vezes** | **R$ 95k** | R$ 88k | **R$ 252** |
+| **18-29** | **393** | **119** | **3,3 vezes** | **R$ 138k** | R$ 107k | R$ 188 |
+| 30-39 | 163 | 107 | 1,5 vezes | R$ 69k | R$ 98k | R$ 191 |
+| 40-49 | 163 | 107 | 1,5 vezes | R$ 70k | R$ 97k | R$ 192 |
+| 50-59 | 163 | 112 | 1,5 vezes | R$ 72k | R$ 104k | R$ 203 |
+| 60-69 | 154 | 114 | 1,4 vezes | R$ 66k | R$ 103k | R$ 197 |
+| **70+** | **175** | **97** | **1,8 vezes** | **R$ 86k** | R$ 88k | **R$ 251** |
 
 **Os achados:**
 
-- **Faixa 18-29, o alerta mais urgente.** Fazem 3,7 vezes mais Pix do que cartão por pessoa, a maior razão de todas. O volume de Pix por cliente (R$ 153k) é o dobro das faixas do meio. Eles têm cartão e têm limite, mas escolhem o Pix de propósito. São só 115 clientes: o banco não está captando o jovem que, quando existe, já prefere o Pix.
-- **Faixa 70+, a surpresa.** Segunda maior razão Pix sobre cartão (2,0 vezes). Fazem menos Pix, mas de valores maiores (mediana de R$ 252, contra R$ 188 a 203 nas outras).
-- **Faixas 40-59, o núcleo atual.** Menor razão Pix sobre cartão (1,5 a 1,7 vezes), ainda usam cartão de forma equilibrada. Mas por serem os maiores grupos, respondem pelo maior volume absoluto de Pix.
+- **Faixa 18-29, o alerta mais urgente.** Fazem 3,3 vezes mais Pix do que cartão por pessoa, a maior razão de todas. O volume de Pix por cliente (R$ 138k) é o dobro das faixas do meio. Eles têm cartão e têm limite, mas escolhem o Pix de propósito. São só 115 clientes: o banco não está captando o jovem que, quando existe, já prefere o Pix.
+- **Faixa 70+, a surpresa.** Segunda maior razão Pix sobre cartão (1,8 vezes). Fazem menos Pix, mas de valores maiores (mediana de R$ 251, contra R$ 188 a 203 nas outras).
+- **Faixas 40-59, o núcleo atual.** Menor razão Pix sobre cartão (1,4 a 1,5 vezes), ainda usam cartão de forma equilibrada. Mas por serem os maiores grupos, respondem pelo maior volume absoluto de Pix.
 
 ### Volume de Pix e a parte que vai para empresas
 
@@ -609,14 +610,14 @@ Volume de Pix enviado, de Q3 para Q4 de 2025:
 
 | Faixa | 2025Q3 | 2025Q4 | Crescimento |
 |-------|--------|--------|-------------|
-| 18-29 | R$ 1,23M | R$ 1,83M | +49% |
-| 30-39 | R$ 3,11M | R$ 4,81M | +55% |
-| 40-49 | R$ 7,26M | R$ 10,59M | +46% |
-| 50-59 | R$ 6,62M | R$ 9,84M | +49% |
-| 60-69 | R$ 3,66M | R$ 5,30M | +45% |
-| 70+ | R$ 1,29M | R$ 1,71M | +33% |
+| 18-29 | R$ 1,12M | R$ 1,63M | +46% |
+| 30-39 | R$ 2,82M | R$ 4,35M | +54% |
+| 40-49 | R$ 6,55M | R$ 9,54M | +46% |
+| 50-59 | R$ 6,00M | R$ 8,90M | +48% |
+| 60-69 | R$ 3,33M | R$ 4,78M | +43% |
+| 70+ | R$ 1,16M | R$ 1,55M | +34% |
 
-> O crescimento em Q4 é forte e parecido em todas as faixas (de +33% a +55%). Nenhuma está revertendo a tendência, a migração está acelerando na base inteira ao mesmo tempo.
+> O crescimento em Q4 é forte e parecido em todas as faixas (de +34% a +54%). Nenhuma está revertendo a tendência, a migração está acelerando na base inteira ao mesmo tempo.
 
 **Três dimensões do problema:**
 
@@ -634,7 +635,7 @@ O churn num banco emissor aparece de cinco formas. Os dados deixam medir quatro 
 
 | Tipo | Nome | Evidência | Urgência |
 |------|------|-----------|---------|
-| A | Churn silencioso (Pix) | Volume cartão -75%, Pix PJ +470% em 2025 | Crítica |
+| A | Churn silencioso (Pix) | Volume cartão -75%, Pix PJ +446% em 2025 | Crítica |
 | B | Conta fantasma | 85 clientes sem registro em nenhuma base | Alta |
 | C | Inatividade em 2025 | 87 clientes sem nenhuma atividade no ano | Alta |
 | D | Desinvestimento | Resgates acelerando, recorde em 2025Q4 | A acompanhar |
@@ -647,8 +648,8 @@ O churn num banco emissor aparece de cinco formas. Os dados deixam medir quatro 
 Já mostrado nas seções 11 e 12. Em resumo:
 
 - Volume de cartão caiu de R$ 23,4M (2024Q4) para R$ 5,9M (2025Q4), uma queda de 75%.
-- Pix para empresas no mesmo período: de R$ 3,3M para R$ 19,9M, um salto de 470%.
-- Em 2025Q4, o Pix PJ supera o cartão em 3,4 vezes.
+- Pix para empresas (aprovado) no mesmo período: de R$ 3,3M para R$ 17,9M, um salto de 446%.
+- Em 2025Q4, o Pix PJ (R$ 19,9M bruto) supera o cartão em 3,4 vezes.
 - A motivação: a LuminaPay tem "Pix no crédito", o cliente faz Pix e parcela como cartão. O Priceless não tem equivalente.
 
 ### [B] Contas fantasma
@@ -794,7 +795,7 @@ Desses 1.018, só 4 nunca tiveram transação. A grande maioria estava em uso at
 
 **1. O Pix está canibalizando o cartão.** O volume de cartão caiu cerca de 75% de 2024Q4 para 2025Q4, enquanto o Pix multiplicou por 6 no mesmo período. Com 62% dos Pix indo para empresas, os clientes estão pagando em estabelecimentos por Pix no lugar do cartão. Este é o principal motivo da perda de share. A hipótese é o "Pix no crédito" da LuminaPay, que o Priceless não tem.
 
-**2. Cartões não ativados e não renovados.** 469 cartões (11,7%) nunca fizeram uma única compra e 1.017 (28,5%) já venceram. A não ativação é um forte previsor de churn, e aponta falha de onboarding ou de estímulo depois da emissão.
+**2. Cartões não ativados e não renovados.** 469 cartões (11,7%) nunca fizeram uma única compra e 1.018 (28,5%) já venceram. A não ativação é um forte previsor de churn, e aponta falha de onboarding ou de estímulo depois da emissão.
 
 **3. O perfil da base não acompanha o mercado que cresce.** Idade média de 49 anos e renda média de R$ 85k. A LuminaPay foca em jovens e early adopters. O banco está concentrado num público que, mesmo com renda, não está protegendo o share, que segue caindo.
 
