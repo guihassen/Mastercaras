@@ -61,10 +61,8 @@ Leia nesta ordem para acompanhar o raciocínio do diagnóstico até o plano:
 │   ├── Base_pix.csv
 │   ├── Base_investimentos.csv
 │   └── dicionario/             Dicionário de dados de cada base
-├── notebooks/                  Análises em Jupyter
-│   ├── main.ipynb              EDA principal, faixa etária e projeção de recuperação de receita
-│   ├── analise_cartao.ipynb    Análise do Cartão Digital (onde o Pix não entra)
-│   ├── publico_alvo.ipynb      Público-alvo e mercado do Pix no crédito
+├── notebooks/                  Análise em Jupyter
+│   ├── main.ipynb              Notebook único: limpeza, EDA, diagnóstico cartão×Pix, público-alvo, churn, perda e projeção
 │   └── graficos/               Gráficos gerados, em PNG
 ├── docs/                       Documentação do projeto (diagnóstico, proposta, plano)
 ├── relatorio/                  Relatório final em HTML e o script que gera o PDF
@@ -89,7 +87,7 @@ pip install -r requirements.txt
 
 ### 2. Rodar as análises
 
-Abra os notebooks da pasta `notebooks/` no Jupyter ou no VS Code. O `main.ipynb` é o ponto de partida (EDA, faixa etária e projeção de receita); o `analise_cartao.ipynb` gera os gráficos do diagnóstico cartão × Pix (`A1`–`B4`) e o `publico_alvo.ipynb` cobre o público-alvo e o mercado do Pix no crédito (`prod_*`). Juntos, produzem os gráficos usados na documentação, salvos em `notebooks/graficos/`.
+Abra o `notebooks/main.ipynb` no Jupyter ou no VS Code e rode de cima a baixo. Ele concentra tudo — limpeza dos dados, EDA, diagnóstico cartão × Pix (`A1`–`B4`), público-alvo e produtos do Pix no crédito (`prod_*`), churn, perda de intercâmbio e projeção de receita — e salva todos os gráficos usados na documentação em `notebooks/graficos/`.
 
 ### 3. Gerar o relatório em PDF
 
