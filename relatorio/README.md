@@ -8,7 +8,7 @@ Relatório executivo do desafio (diagnóstico + Priceless Pay + plano de ação)
 - `relatorio.pdf` — saída gerada.
 
 Os gráficos vêm de `../notebooks/graficos/*.png` (referência relativa). O conteúdo segue
-`docs/analise-exploratoria.md`, `docs/propostas-solucao.md` e `docs/plano-de-acao-5-anos.md`.
+`docs/analise-exploratoria.md`, `docs/proposta-solucao.md` e `docs/plano-de-acao.md`.
 
 ## Gerar o PDF
 ```bash
@@ -27,4 +27,4 @@ pip install weasyprint                                   # alternativa (macOS: b
 ## Editar
 Mexa no conteúdo/estilo direto no `relatorio.html` (HTML + CSS num único arquivo) e rode o
 `gerar_pdf.py` de novo. Para trocar/atualizar um gráfico, regenere o PNG no notebook
-correspondente — o relatório aponta para o mesmo caminho.
+correspondente, o relatório aponta para o mesmo caminho.

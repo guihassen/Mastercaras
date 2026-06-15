@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(python3 *)",
-      "Bash(jupyter nbconvert *)",
-      "Bash(/home/guilherme/anaconda3/bin/python3 *)"
-    ]
-  }
-}
