@@ -3,3 +3,5 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 *.png
+# logos do projeto devem ir para o repositório (usados no README)
+!assets/*.png
