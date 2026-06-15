@@ -1,6 +1,6 @@
 <p align="center">
   <img src="assets/logo-mastercard.png" alt="Mastercard" height="70">
-  &nbsp;&nbsp;&nbsp;<b><sub>×</sub></b>&nbsp;&nbsp;&nbsp;
+  &nbsp;&nbsp;&nbsp;<b><sub></sub></b>&nbsp;&nbsp;&nbsp;
   <img src="assets/logo-mastercaras.png" alt="Os Mastercaras" height="110">
 </p>
 
