@@ -203,7 +203,7 @@
   <div class="meta">
     <div><span>Entrega</span><b>Relatório final</b></div>
     <div><span>Data</span><b>Junho 2026</b></div>
-    <div><span>Base analisada</span><b>1.960 clientes · 457k transações</b></div>
+    <div><span>Base analisada</span><b>1.960 clientes · 457k registros (5 bases)</b></div>
     <div><span>Período</span><b>Jan/2023 – Dez/2025</b></div>
   </div>
 </section>
@@ -234,7 +234,7 @@
       <p>Não brigamos pelo balcão que o PIX já dominou. O motor <b>recupera o que vaza</b>, o Cartão Digital <b>cresce no território PIX-proof</b> (online, internacional, recorrência) e o PIX no Crédito <b>monetiza o próprio fluxo do PIX</b> — com cashback que vira investimento.</p>
 
       <div class="callout navy">
-        <b>A tese em números.</b> A inversão cartão→PIX custa <b>≈ R$ 1,49 M/ano</b>. O núcleo gratuito da solução repõe <b>38% (neutro)</b> a <b>98% (otimista)</b> dessa perda — e há <b>R$ 17,9 M/tri</b> de PIX→PJ endereçável pelo PIX no crédito.
+        <b>A tese em números.</b> A inversão cartão→PIX custa <b>≈ R$ 1,51 M/ano</b>. O núcleo gratuito da solução repõe <b>37% (neutro)</b> a <b>95% (otimista)</b> dessa perda — e há <b>R$ 17,9 M/tri</b> de PIX→PJ endereçável pelo PIX no crédito.
       </div>
       <div class="callout">
         <b>Prontidão:</b> dos 1.430 clientes que mandam PIX→PJ, <b>998 (70%) já têm cartão de crédito ativo</b> — custo de aquisição do PIX no crédito perto de zero.
@@ -282,7 +282,7 @@
   <table class="avoid-break">
     <thead><tr><th>Sintoma</th><th>Evidência nos dados</th><th>Urgência</th></tr></thead>
     <tbody>
-      <tr><td><b>Churn silencioso (PIX)</b></td><td>Cartão −75%, PIX→PJ +470% em 2025; PIX→PJ = 3,4× o cartão</td><td><span class="down">🔴 Crítica</span></td></tr>
+      <tr><td><b>Churn silencioso (PIX)</b></td><td>Cartão −75%, PIX→PJ +446% em 2025; PIX→PJ = 3,4× o cartão</td><td><span class="down">🔴 Crítica</span></td></tr>
       <tr><td><b>Cartões nunca usados</b></td><td>469 cartões (11,7%) emitidos e nunca transacionados</td><td><span class="down">🟠 Alta</span></td></tr>
       <tr><td><b>Cartões vencidos</b></td><td>1.018 cartões expirados sem renovação (56% premium)</td><td><span class="down">🟠 Estrutural</span></td></tr>
       <tr><td><b>Inatividade & contas-fantasma</b></td><td>87 inativos em 2025 + 85 sem nenhuma atividade histórica</td><td><span class="down">🔴 Alta</span></td></tr>
@@ -460,7 +460,7 @@
   </div>
 
   <div class="callout">
-    <b>Prontidão da base (custo de aquisição ~zero):</b> dos 1.430 clientes que mandam PIX→PJ, <b>998 (70%) já têm cartão de crédito ativo</b>. O público jovem (18-29) movimenta <b>R$ 72k de PIX→PJ por cliente</b> — quase o dobro das demais faixas (~R$ 37–42k).
+    <b>Prontidão da base (custo de aquisição ~zero):</b> dos 1.430 clientes que mandam PIX→PJ, <b>998 (70%) já têm cartão de crédito ativo</b>. O público jovem (18-29) movimenta <b>R$ 68k de PIX→PJ por cliente</b> — quase o dobro das demais faixas (R$ 36–45k).
   </div>
 
   <h3>As três frentes</h3>
@@ -488,7 +488,7 @@
 
   <figure>
     <img src="../notebooks/graficos/prod_investlimite.png" alt="Reservinha como âncora de limite">
-    <figcaption>Frente 3 em números: 669 clientes já são elegíveis (saldo ≥ R$1k) e o limite médio poderia saltar de <b>R$ 46,5k para R$ 83,6k</b> com a Reservinha como lastro.</figcaption>
+    <figcaption>Frente 3 em números: 634 clientes já são elegíveis (saldo ≥ R$1k e com cartão) e o limite médio poderia saltar de <b>R$ 43,6k para R$ 79,5k</b> com a Reservinha como lastro.</figcaption>
   </figure>
 </section>
 
@@ -497,16 +497,16 @@
   <div class="section-eyebrow">06 · Projeção financeira</div>
   <h2>Quanto recupera — três cenários auditáveis</h2>
 
-  <p>A inversão cartão→PIX custa <b>≈ R$ 1,49 M/ano</b> (R$ 216k do colapso do cartão + R$ 1,27 M de intercâmbio que evapora no PIX→PJ). A plataforma é <b>grátis para o cliente</b>; a receita-core vem de intercâmbio recuperado, spread sobre AUM (Saldo Vivo) e juros/IOF do parcelado.</p>
+  <p>A inversão cartão→PIX custa <b>≈ R$ 1,51 M/ano</b> (R$ 216k do colapso do cartão + R$ 1,29 M de intercâmbio que evapora no PIX→PJ — os R$ 17,9 M aprovados em 25Q4, anualizados à taxa de crédito de 1,8%). A plataforma é <b>grátis para o cliente</b>; a receita-core vem de intercâmbio recuperado, spread sobre AUM (Saldo Vivo) e juros/IOF do parcelado.</p>
 
   <table class="avoid-break">
     <thead><tr><th>Fonte (núcleo gratuito) — receita incremental / ano</th><th class="num">Pessimista</th><th class="num">Neutro</th><th class="num">Otimista</th></tr></thead>
     <tbody>
-      <tr><td>Intercâmbio recuperado</td><td class="num">R$ 95,6k</td><td class="num">R$ 286,7k</td><td class="num">R$ 538,3k</td></tr>
+      <tr><td>Intercâmbio recuperado</td><td class="num">R$ 96,7k</td><td class="num">R$ 290,2k</td><td class="num">R$ 544,9k</td></tr>
       <tr><td>Spread sobre AUM (Saldo Vivo)</td><td class="num">R$ 35,3k</td><td class="num">R$ 185,2k</td><td class="num">R$ 614,7k</td></tr>
-      <tr><td>Juros/IOF parcelado (PIX no crédito)</td><td class="num">R$ 11,9k</td><td class="num">R$ 89,4k</td><td class="num">R$ 302,2k</td></tr>
-      <tr class="hl"><td><b>CORE (grátis) / ano</b></td><td class="num">R$ 143k</td><td class="num">R$ 561k</td><td class="num">R$ 1,46M</td></tr>
-      <tr><td><b>% da perda reposta (só o core)</b></td><td class="num">10%</td><td class="num">38%</td><td class="num up">98%</td></tr>
+      <tr><td>Juros/IOF parcelado (PIX no crédito)</td><td class="num">R$ 10,7k</td><td class="num">R$ 80,6k</td><td class="num">R$ 272,5k</td></tr>
+      <tr class="hl"><td><b>CORE (grátis) / ano</b></td><td class="num">R$ 143k</td><td class="num">R$ 556k</td><td class="num">R$ 1,43M</td></tr>
+      <tr><td><b>% da perda reposta (só o core)</b></td><td class="num">9%</td><td class="num">37%</td><td class="num up">95%</td></tr>
     </tbody>
   </table>
 
@@ -522,7 +522,7 @@
         <b>O AUM é a alavanca de maior elasticidade.</b> No neutro, o spread sobre AUM (R$ 185k) já rivaliza com o intercâmbio recuperado — receita recorrente que o banco não tinha. Por isso o Saldo Vivo é o coração do motor.
       </div>
       <div class="callout navy">
-        <b>Conclusão robusta:</b> em qualquer ponto razoável da faixa, a solução gera receita nova relevante numa base que <b>já é 73% digital</b>. Com o upside premium opcional, o otimista chega a <b>110% da perda</b>.
+        <b>Conclusão robusta:</b> em qualquer ponto razoável da faixa, a solução gera receita nova relevante numa base que <b>já é 73% digital</b>. Com o upside premium opcional, o otimista chega a <b>107% da perda</b>.
       </div>
     </div>
   </div>
@@ -588,7 +588,7 @@
   </div>
 
   <p style="margin-top:14px;font-size:8.5pt;color:var(--muted);">
-    <b>Fontes:</b> análise exploratória da base Priceless Bank (1.960 clientes · 156.826 transações · 278.940 PIX · 21.200 investimentos), <code>notebooks/main.ipynb</code> e <code>parte2_cartao_digital.ipynb</code> · Benchmarking Mastercard Challenge 2026 · BACEN — Regulamentação Pix Parcelado (nov/2025). Intercâmbio: 1,8% crédito / 0,6% débito (teto BACEN).
+    <b>Fontes:</b> análise exploratória da base Priceless Bank (1.960 clientes · 156.826 transações · 278.940 PIX · 21.200 investimentos), <code>notebooks/main.ipynb</code>, <code>analise_cartao.ipynb</code> e <code>publico_alvo.ipynb</code> · Benchmarking Mastercard Challenge 2026 · BACEN — Regulamentação Pix Parcelado (nov/2025). Intercâmbio: 1,8% crédito / 0,6% débito (teto BACEN).
   </p>
   <p style="margin-top:10px;font-size:8pt;color:#9a9aa8;text-align:center;border-top:1px solid var(--line);padding-top:12px;">
     Priceless Bank · Mastercard Challenge 2026 · Inteli — Junho 2026 · Documento de uso interno<br>
