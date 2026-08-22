@@ -392,10 +392,9 @@ Educação e Tecnologia têm os maiores tickets médios (cerca de R$ 1.200), e A
 
 - **917 valores negativos (0,3%)** e **591 valores zero (0,2%):** não fazem sentido operacional. Podem ser estorno, erro de sinal ou fraude. Vale investigar com a equipe de risco.
 - **418 registros com data e tipo nulos:** incompletos, devem sair da análise temporal.
-- **3.392 recebimentos negados (10,3% dos recebimentos):** um recebimento recusado é incomum e pode indicar problema de sistema, fraude ou regra de negócio não documentada.
-- **24.644 envios não aprovados (10% dos envios):** taxa alta, já que a média de mercado fica entre 1% e 3%. Pode ser limite estourado, suspeita de fraude ou saldo insuficiente.
+- **28.085 registros não aprovados (10%):** a taxa de aprovação é **constante em 90,0%** em todo trimestre, para PF e PJ e em todo quartil de valor (ver *Radar 2 — sinal × constante* no notebook). É uma característica do gerador de dados sintéticos — não sustenta leitura de fraude nem de fricção. Para volume efetivo, filtramos `Aprovado = 1`.
 
-**O ponto central:** 62% dos envios vão para empresas. Ou seja, os clientes estão usando Pix para pagar em estabelecimentos, no lugar do cartão. Esse é um dos fatores mais prováveis da queda de share.
+**O ponto central:** ~62% das transações (e ~60% do valor) dos envios vão para empresas. Ou seja, os clientes estão usando Pix para pagar em estabelecimentos, no lugar do cartão. Esse é um dos fatores mais prováveis da queda de share.
 
 ---
 
@@ -447,40 +446,44 @@ Aqui está o sinal mais crítico de todo o diagnóstico.
 
 | Trimestre | Volume cartão | Qtd transações |
 |-----------|--------------|-----------|
-| 2023Q1 | R$ 7,4M | 12.244 |
-| 2023Q2 | R$ 6,6M | 10.805 |
-| 2023Q3 | R$ 7,1M | 11.588 |
-| 2023Q4 | R$ 7,4M | 11.930 |
-| **2024Q1** | **R$ 16,5M** | **10.651** |
-| **2024Q2** | **R$ 17,2M** | **10.936** |
-| **2024Q3** | **R$ 20,7M** | **13.193** |
-| **2024Q4** | **R$ 23,4M** | **15.131** |
-| 2025Q1 | R$ 11,8M | 19.145 |
-| 2025Q2 | R$ 11,5M | 18.732 |
-| 2025Q3 | R$ 7,8M | 12.811 |
-| 2025Q4 | R$ 5,9M | 9.660 |
+| 2023Q1 | R$ 7,4M | 12.233 |
+| 2023Q2 | R$ 6,6M | 10.792 |
+| 2023Q3 | R$ 7,1M | 11.579 |
+| 2023Q4 | R$ 7,4M | 11.921 |
+| **2024Q1** | **R$ 16,5M** | **10.642** |
+| **2024Q2** | **R$ 17,2M** | **10.921** |
+| **2024Q3** | **R$ 20,7M** | **13.180** |
+| **2024Q4** | **R$ 23,5M** | **15.118** |
+| 2025Q1 | R$ 11,8M | 19.117 |
+| 2025Q2 | R$ 11,5M | 18.713 |
+| 2025Q3 | R$ 7,8M | 12.793 |
+| 2025Q4 | R$ 5,9M | 9.652 |
+
+*Universo: transações com valor positivo (sem estornos), como em todo o notebook.*
 
 ### Volume de Pix enviado por trimestre
 
 | Trimestre | Volume Pix | Qtd Pix |
 |-----------|-----------|---------|
-| 2023Q1 | R$ 5,5M | 26.504 |
-| 2023Q2 | R$ 5,7M | 26.850 |
-| 2023Q3 | R$ 5,6M | 27.116 |
-| 2023Q4 | R$ 5,4M | 26.732 |
-| 2024Q1 | R$ 5,3M | 26.868 |
-| 2024Q2 | R$ 5,1M | 26.545 |
-| 2024Q3 | R$ 5,8M | 27.195 |
-| 2024Q4 | R$ 5,5M | 27.005 |
-| **2025Q3** | **R$ 20,1M** | **25.669** |
-| **2025Q4** | **R$ 31,4M** | **38.038** |
+| 2023Q1 | R$ 5,2M | 20.930 |
+| 2023Q2 | R$ 5,3M | 21.111 |
+| 2023Q3 | R$ 5,3M | 21.317 |
+| 2023Q4 | R$ 5,2M | 21.057 |
+| 2024Q1 | R$ 5,2M | 20.997 |
+| 2024Q2 | R$ 5,1M | 20.911 |
+| 2024Q3 | R$ 5,3M | 21.391 |
+| 2024Q4 | R$ 5,3M | 21.122 |
+| **2025Q3** | **R$ 21,0M** | **20.555** |
+| **2025Q4** | **R$ 30,7M** | **30.408** |
+
+*Universo canônico: envios aprovados (`Valor > 0`, data válida, `Aprovado = 1`).*
 
 ### O achado: a inversão em 2025
 
 Em 2025 acontece uma virada forte:
 
-- O cartão sai do pico de **R$ 23,4M (2024Q4) e cai para R$ 5,9M (2025Q4)**, uma queda de 75%.
-- O Pix, estável em cerca de R$ 5,5M por trimestre até 2024, explode para **R$ 31,4M (2025Q4)**, um salto de 470%.
+- O cartão cai **50% ao longo de 2025** (R$ 11,8M em Q1 → R$ 5,9M em Q4). Contra o pico de 2024Q4 (R$ 23,5M) a queda em valor é de 75% — mas o ticket de 2024 é um artefato dos dados (2,5×); em **quantidade**, 2024Q4→2025Q4 é −36%.
+- O Pix aprovado, estável em cerca de R$ 5,3M por trimestre até 2024, explode para **R$ 30,7M (2025Q4)**, um salto de +485%.
 
 A razão entre Pix e cartão (em quantidade) cresce trimestre a trimestre, o que mostra uma substituição sistemática do cartão pelo Pix.
 
@@ -501,7 +504,7 @@ A razão entre Pix e cartão (em quantidade) cresce trimestre a trimestre, o que
 |-----------|-------|-------|
 | Intercâmbio no crédito | 1,8% | Benchmark Mastercard Brasil (média doméstica) |
 | Intercâmbio no débito | 0,6% | Teto da regra do BACEN |
-| Taxa média do portfólio | cerca de 1,65% | 83% crédito a 1,8% mais 17% débito a 0,6% |
+| Taxa média do portfólio | 1,60% | 83,6% crédito a 1,8% + 16,4% débito a 0,6%, ponderado por volume |
 | Ticket-base normalizado | R$ 615 | Mediana de 2023 e 2025 (tira a anomalia de 2024) |
 | Trimestre de referência | 2023Q4 normalizado | Último antes da anomalia de ticket de 2024 |
 
@@ -513,44 +516,46 @@ A razão entre Pix e cartão (em quantidade) cresce trimestre a trimestre, o que
 
 | Trimestre | Vol. cartão | Qtd | Ticket | Intercâmbio real | Intercâmbio normalizado | Perda vs 2023Q4 |
 |-----------|-------------|---------|-------------|-----------------|------------------|----------------|
-| 2023Q1 | R$ 7,4M | 12.233 | R$ 607 | R$ 126k | R$ 126k | referência |
-| 2023Q2 | R$ 6,6M | 10.792 | R$ 615 | R$ 113k | R$ 111k | referência |
-| 2023Q3 | R$ 7,1M | 11.579 | R$ 612 | R$ 120k | R$ 119k | referência |
-| 2023Q4 | R$ 7,4M | 11.921 | R$ 618 | R$ 125k | **R$ 123k (ref.)** | referência |
-| 2024Q1 | R$ 16,5M | 10.642 | **R$ 1.550** | R$ 280k | R$ 110k | R$ 13k |
-| 2024Q2 | R$ 17,2M | 10.921 | **R$ 1.579** | R$ 293k | R$ 113k | R$ 10k |
-| 2024Q3 | R$ 20,7M | 13.180 | **R$ 1.573** | R$ 352k | R$ 136k | sem perda |
-| 2024Q4 | R$ 23,5M | 15.118 | **R$ 1.552** | R$ 398k | R$ 156k | sem perda |
-| 2025Q1 | R$ 11,8M | 19.117 | R$ 617 | R$ 200k | R$ 197k | sem perda |
-| 2025Q2 | R$ 11,5M | 18.713 | R$ 613 | R$ 195k | R$ 193k | sem perda |
-| 2025Q3 | R$ 7,8M | 12.793 | R$ 610 | R$ 133k | R$ 132k | **R$ 0** |
-| 2025Q4 | R$ 5,9M | 9.652 | R$ 613 | R$ 100k | R$ 100k | **R$ 23k por tri** |
+| 2023Q1 | R$ 7,4M | 12.233 | R$ 607 | R$ 119k | R$ 120k | referência |
+| 2023Q2 | R$ 6,6M | 10.792 | R$ 615 | R$ 107k | R$ 106k | R$ 11k |
+| 2023Q3 | R$ 7,1M | 11.579 | R$ 612 | R$ 114k | R$ 114k | R$ 3k |
+| 2023Q4 | R$ 7,4M | 11.921 | R$ 618 | R$ 118k | **R$ 117k (ref.)** | referência |
+| 2024Q1 | R$ 16,5M | 10.642 | **R$ 1.550** | R$ 264k | R$ 105k | R$ 13k |
+| 2024Q2 | R$ 17,2M | 10.921 | **R$ 1.579** | R$ 278k | R$ 107k | R$ 10k |
+| 2024Q3 | R$ 20,7M | 13.180 | **R$ 1.573** | R$ 333k | R$ 130k | sem perda |
+| 2024Q4 | R$ 23,5M | 15.118 | **R$ 1.552** | R$ 377k | R$ 149k | sem perda |
+| 2025Q1 | R$ 11,8M | 19.117 | R$ 617 | R$ 188k | R$ 188k | sem perda |
+| 2025Q2 | R$ 11,5M | 18.713 | R$ 613 | R$ 183k | R$ 184k | sem perda |
+| 2025Q3 | R$ 7,8M | 12.793 | R$ 610 | R$ 124k | R$ 126k | **R$ 0** |
+| 2025Q4 | R$ 5,9M | 9.652 | R$ 613 | R$ 94k | R$ 95k | **R$ 22k por tri** |
 
-> **Sobre 2025Q1 e Q2:** o ticket é normal (R$ 615), mas a quantidade de transações em Q1 (19.117) e Q2 (18.713) é anormalmente alta perto do histórico (11 a 13 mil por trimestre), o que infla o intercâmbio. Em Q3 e Q4 o volume cai de volta e o intercâmbio cai para a faixa de R$ 100 a 133 mil.
+> **Sobre 2025Q1 e Q2:** o ticket é normal (R$ 615), mas a quantidade de transações em Q1 (19.117) e Q2 (18.713) é anormalmente alta perto do histórico (11 a 13 mil por trimestre), o que infla o intercâmbio. Em Q3 e Q4 o volume cai de volta e o intercâmbio cai para a faixa de R$ 94 a 124 mil.
 
 ### Custo de oportunidade do Pix para empresas
 
 | Trimestre | Vol. Pix para PJ | Qtd Pix | Oportunidade de intercâmbio (1,8%) |
 |-----------|-------------|---------|--------------------------|
-| 2023 (média) | cerca de R$ 3,6M por tri | cerca de 14.700 por tri | cerca de R$ 65k por tri |
-| 2024 (média) | cerca de R$ 3,5M por tri | cerca de 14.500 por tri | cerca de R$ 63k por tri |
-| 2025Q3 | **R$ 13,5M** | 13.273 | **R$ 243k** |
-| 2025Q4 | **R$ 19,9M** | 19.645 | **R$ 358k** |
+| 2023 (média) | cerca de R$ 3,3M por tri | cerca de 13.300 por tri | cerca de R$ 60k por tri |
+| 2024 (média) | cerca de R$ 3,3M por tri | cerca de 13.300 por tri | cerca de R$ 59k por tri |
+| 2025Q3 | **R$ 12,2M** | 11.972 | **R$ 220k** |
+| 2025Q4 | **R$ 17,9M** | 17.674 | **R$ 322k** |
+
+*Universo: Pix→PJ aprovado — o mesmo usado no dimensionamento da perda e da solução.*
 
 ### O impacto em poucos números
 
 | Métrica | Valor |
 |---------|-------|
-| Intercâmbio em 2025Q4 (normalizado) | R$ 100k por trimestre |
-| Custo de oportunidade do Pix para PJ em 2025Q4 | **R$ 358k por trimestre** |
-| Razão Pix PJ sobre volume de cartão em 2025Q4 | **3,4 vezes** (o Pix PJ supera o cartão) |
-| Se o banco recuperasse 50% do Pix PJ para cartão | mais R$ 179k por tri, cerca de 179% da receita atual |
-| Intercâmbio anual em risco (projetando o Q4 2025) | cerca de R$ 400k por ano |
+| Intercâmbio em 2025Q4 (normalizado) | R$ 95k por trimestre |
+| Custo de oportunidade do Pix para PJ em 2025Q4 | **R$ 322k por trimestre** |
+| Razão Pix PJ (aprovado) sobre volume de cartão em 2025Q4 | **3,0 vezes** (o Pix PJ supera o cartão) |
+| Se o banco recuperasse 50% do Pix PJ para cartão | mais R$ 161k por tri, cerca de 170% da receita atual |
+| Oportunidade anual não capturada no Pix PJ (25Q4 anualizado) | cerca de R$ 1,29 milhão por ano |
 
 ![Pix para empresas versus cartão](../notebooks/graficos/A2_pixpj_vs_cartao.png)
 *O Pix para empresas ultrapassa o volume total de cartão em 2025, a canibalização direta do meio de pagamento.*
 
-**A leitura:** em 2025Q4, o volume de Pix para estabelecimentos (R$ 19,9M) é 3,4 vezes o volume total de cartão (R$ 5,9M). Se só 30% desse Pix PJ virasse compra no crédito, o banco quase dobraria a receita de intercâmbio do trimestre. E a perda não é só de dinheiro: cada Pix para empresa também é uma perda de dado de consumo (setor, ticket, recorrência) que alimenta score, ofertas e cross-sell.
+**A leitura:** em 2025Q4, o volume de Pix aprovado para estabelecimentos (R$ 17,9M) é 3,0 vezes o volume total de cartão (R$ 5,9M). Se só 30% desse Pix PJ virasse compra no crédito, o banco quase dobraria a receita de intercâmbio do trimestre. E a perda não é só de dinheiro: cada Pix para empresa também é uma perda de dado de consumo (setor, ticket, recorrência) que alimenta score, ofertas e cross-sell.
 
 ---
 
@@ -592,14 +597,16 @@ Cruzando a base de clientes com a de Pix dá para entender quem usa Pix, com que
 
 | Faixa | Vol. total Pix | Vol. Pix para PJ | % PJ | Qtd Pix para PJ |
 |-------|--------------|------------|------|-----------|
-| 18-29 | R$ 11,8M | R$ 5,3M | 45% | 14.996 |
-| 30-39 | R$ 15,5M | R$ 7,5M | 48% | 18.161 |
-| 40-49 | R$ 34,4M | R$ 16,7M | 49% | 39.718 |
-| 50-59 | R$ 32,4M | R$ 15,8M | 49% | 36.833 |
-| 60-69 | R$ 17,1M | R$ 8,3M | 48% | 19.884 |
-| 70+ | R$ 6,3M | R$ 3,0M | 47% | 6.357 |
+| 18-29 | R$ 8,5M | R$ 5,3M | 62% | 14.996 |
+| 30-39 | R$ 12,4M | R$ 7,5M | 60% | 18.161 |
+| 40-49 | R$ 27,8M | R$ 16,7M | 60% | 39.718 |
+| 50-59 | R$ 26,1M | R$ 15,8M | 61% | 36.833 |
+| 60-69 | R$ 13,8M | R$ 8,3M | 60% | 19.884 |
+| 70+ | R$ 5,0M | R$ 3,0M | 59% | 6.357 |
 
-> A proporção de Pix para empresas é parecida em todas as faixas (47% a 49%). Ou seja, a canibalização do cartão é um comportamento de toda a base, não de um grupo só.
+*Universo: envios aprovados (volume total e Pix→PJ no mesmo recorte).*
+
+> A proporção de Pix para empresas é parecida em todas as faixas (59% a 62% do valor enviado). Ou seja, a canibalização do cartão é um comportamento de toda a base, não de um grupo só.
 
 ![Migração transversal a todas as idades](../notebooks/graficos/A4_transversal.png)
 *Pagar empresa por Pix é comportamento de toda a base, em todas as idades.*
@@ -637,7 +644,7 @@ O churn num banco emissor aparece de cinco formas. Os dados deixam medir quatro 
 |------|------|-----------|---------|
 | A | Churn silencioso (Pix) | Volume cartão -75%, Pix PJ +446% em 2025 | Crítica |
 | B | Conta fantasma | 85 clientes sem registro em nenhuma base | Alta |
-| C | Inatividade em 2025 | 87 clientes sem nenhuma atividade no ano | Alta |
+| C | Inatividade em 2025 | 87 sem atividade no ano — 85 são as próprias contas fantasma; **2** esfriaram em 2025 | Alta |
 | D | Desinvestimento | Resgates acelerando, recorde em 2025Q4 | A acompanhar |
 | E | Cartão vencido | 1.018 cartões expirados, 56% premium | Estrutural |
 
@@ -647,7 +654,7 @@ O churn num banco emissor aparece de cinco formas. Os dados deixam medir quatro 
 
 Já mostrado nas seções 11 e 12. Em resumo:
 
-- Volume de cartão caiu de R$ 23,4M (2024Q4) para R$ 5,9M (2025Q4), uma queda de 75%.
+- Volume de cartão caiu 50% ao longo de 2025 (R$ 11,8M → R$ 5,9M); contra 2024Q4 a queda em valor é 75% (ticket-artefato; −36% em quantidade).
 - Pix para empresas (aprovado) no mesmo período: de R$ 3,3M para R$ 17,9M, um salto de 446%.
 - Em 2025Q4, o Pix PJ (R$ 19,9M bruto) supera o cartão em 3,4 vezes.
 - A motivação: a LuminaPay tem "Pix no crédito", o cliente faz Pix e parcela como cartão. O Priceless não tem equivalente.
@@ -658,7 +665,7 @@ Já mostrado nas seções 11 e 12. Em resumo:
 |---------|-------|
 | Clientes sem nenhuma atividade histórica | **85 (4,3%)** |
 | Distribuição etária | 40-49: 20 · 50-59: 25 · 60-69: 18 · demais: 22 |
-| Tempo médio de conta | 26 meses |
+| Tempo médio de conta | 27 meses |
 | Renda média | R$ 86.917 |
 | Abertura | jan/2023 a dez/2025 |
 
@@ -668,19 +675,20 @@ Já mostrado nas seções 11 e 12. Em resumo:
 
 | Métrica | Valor |
 |---------|-------|
-| Clientes inativos em 2025 (sem transação, Pix ou investimento) | **87 (4,4%)** |
-| Tempo médio de conta | 27 meses |
-| Renda média | R$ 86.245 |
+| Clientes sem atividade em 2025 (sem transação, Pix ou investimento) | **87 (4,4%)** |
+| — dos quais contas fantasma (nunca tiveram atividade; cenário B) | 85 |
+| — dos quais esfriaram em 2025 (tinham histórico e pararam) | **2** |
+
+> **Nota de honestidade metodológica:** B e C se sobrepõem quase por completo — o churn "confirmado" novo de 2025 é de apenas 2 clientes. O sinal relevante de deterioração recente está nos **39** que sumiram entre Q3 e Q4 (abaixo) e no desinvestimento (cenário D).
 
 Dentro desses 87:
 
 | Sub-cenário | Clientes | Provável motivo |
 |-------------|---------|-------------------|
-| Pararam o cartão, ainda usam Pix | alguns | Migração funcional, o Pix resolve o dia a dia |
-| Sumiram por completo | alguns | Foram para um concorrente |
-| Sumiram entre Q3 e Q4 de 2025 | **39** | Deterioração recente, ainda dá tempo de agir |
+| Esfriaram em 2025 (tinham histórico) | 2 | Migração ou abandono gradual |
+| Sumiram entre Q3 e Q4 de 2025 (ativos no cartão em Q3, não em Q4) | **39** | Deterioração recente, ainda dá tempo de agir |
 
-A concentração está nas faixas 50-59 (25) e 40-49 (20), justo o público que o Papaya está conquistando. A hipótese é que migraram para lá ou estão abandonando aos poucos. Sobre os 39 que sumiram entre Q3 e Q4: a queda não foi de ticket (mediana estável em R$ 597 a 598), foi de frequência (menos 25% de transações). Ou seja, estão comprando menos vezes pelo cartão, não comprando menos.
+Nas contas fantasma, a concentração está nas faixas 50-59 (25) e 40-49 (20), justo o público que o Papaya conquista. Sobre os 39 que sumiram entre Q3 e Q4: a queda não foi de ticket (mediana estável em R$ 597 a 598), foi de frequência (menos 25% de transações). Ou seja, estão comprando menos vezes pelo cartão, não comprando menos.
 
 ### [D] Desinvestimento acelerado
 
@@ -700,6 +708,8 @@ A concentração está nas faixas 50-59 (25) e 40-49 (20), justo o público que 
 
 **Provável motivo:** rendimento dos produtos abaixo da concorrência. A Aurora, que quase dobrou de tamanho, tem investimentos exclusivos e Home Broker como diferencial. Quem investe compara rendimento e move o dinheiro para onde rende mais. A Reservinha, produto mais popular do Priceless, pode estar perdendo para opções com retorno melhor.
 
+**Teste complementar (notebook):** hoje, investir **não** retém — a retenção no cartão (ativo em 2024 → ativo em 2025Q4) é 95,2% entre investidores e 95,6% entre não investidores, com gasto idêntico. O lock-in de investimento não existe na base atual; é exatamente o laço que a proposta (Reservinha-âncora + Saldo Vivo) é desenhada para criar.
+
 ### [E] Cartões vencidos sem renovação
 
 | Produto | Cartões vencidos |
@@ -717,9 +727,11 @@ Desses 1.018, só 4 nunca tiveram transação. A grande maioria estava em uso at
 
 | Nível | Clientes | Características |
 |-------|---------|----------------|
-| Baixo | cerca de 884 | Ativos em Q3 e Q4 de 2025, sem resgates |
-| Médio | cerca de 32 | Algum sinal recente de fraqueza |
-| Alto | cerca de 533 | Sem cartão nos últimos trimestres e outros sinais |
+| Baixo | 1.398 | Ativos no cartão em Q3 e Q4 de 2025, sem sinais |
+| Médio | 475 | Algum sinal (sem cartão em um dos trimestres recentes, ou desinvestindo) |
+| Alto | 87 | Score ≥ 4: acumulam inatividade histórica/recente e desinvestimento |
+
+*Score heurístico (pesos 3/2/1/1/1, corte em 4), calculado na seção 10 do notebook.*
 
 **Sobre o tempo de conta:** o risco alto não se concentra nos clientes mais novos. Clientes com 2 a 3 anos de conta aparecem em todas as faixas de risco. Isso indica que o problema não é reter recém-chegados, e sim uma proposta de valor fraca para a base inteira.
 
@@ -781,7 +793,7 @@ Desses 1.018, só 4 nunca tiveram transação. A grande maioria estava em uso at
 
 **1º. Base de transações (10/10).** Registra direto o uso do cartão, o produto central do banco. Permite calcular volume por período, ticket, uso por cliente, comportamento por setor e canal. A evidência mais forte está aqui: o volume trimestral caiu cerca de 75% de 2024Q4 para 2025Q4. É a única base com informação de parcelamento.
 
-**2º. Base de Pix (9/10).** A maior em volume (278.940 registros). Com 62% dos envios indo para empresas, é o concorrente direto do cartão. O crescimento explosivo em 2025 é o espelho da queda do cartão, e dá para medir a canibalização dentro da própria base. A taxa de reprovação de 10% nos envios também é um sinal de fricção ou fraude.
+**2º. Base de Pix (9/10).** A maior em volume (278.940 registros). Com ~60% do valor dos envios indo para empresas, é o concorrente direto do cartão. O crescimento explosivo em 2025 é o espelho da queda do cartão, e dá para medir a canibalização dentro da própria base. A taxa de aprovação constante de 90% em todo corte é uma característica do gerador de dados (ver Radar 2 do notebook), não um sinal de fricção.
 
 **3º. Base de clientes (8/10).** A tabela mestre de segmentação. Sem ela não dá para perfilar nenhum achado. Permite cruzar tudo por idade, renda, região e número de cartões. A idade média de 49 anos e a renda de R$ 85k mostram um perfil que não bate com o público da LuminaPay.
 
@@ -793,25 +805,25 @@ Desses 1.018, só 4 nunca tiveram transação. A grande maioria estava em uso at
 
 ## 17. Principais conclusões
 
-**1. O Pix está canibalizando o cartão.** O volume de cartão caiu cerca de 75% de 2024Q4 para 2025Q4, enquanto o Pix multiplicou por 6 no mesmo período. Com 62% dos Pix indo para empresas, os clientes estão pagando em estabelecimentos por Pix no lugar do cartão. Este é o principal motivo da perda de share. A hipótese é o "Pix no crédito" da LuminaPay, que o Priceless não tem.
+**1. O Pix está canibalizando o cartão.** O volume de cartão caiu 50% ao longo de 2025 (e 75% em valor contra o pico de 2024Q4 — inflado pelo ticket-artefato; −36% em quantidade), enquanto o Pix aprovado cresceu +485% no mesmo período. Com ~60% do valor dos envios indo para empresas, os clientes estão pagando em estabelecimentos por Pix no lugar do cartão — em 2025Q4 o Pix→PJ aprovado é 3,0× todo o volume de cartão. Este é o principal motivo da perda de share. A hipótese é o "Pix no crédito" da LuminaPay, que o Priceless não tem.
 
 **2. Cartões não ativados e não renovados.** 469 cartões (11,7%) nunca fizeram uma única compra e 1.018 (28,5%) já venceram. A não ativação é um forte previsor de churn, e aponta falha de onboarding ou de estímulo depois da emissão.
 
 **3. O perfil da base não acompanha o mercado que cresce.** Idade média de 49 anos e renda média de R$ 85k. A LuminaPay foca em jovens e early adopters. O banco está concentrado num público que, mesmo com renda, não está protegendo o share, que segue caindo.
 
-**4. Taxa de reprovação de Pix alta.** 24.644 envios não aprovados (10%) e 3.392 recebimentos negados (10,3%) são taxas incomuns. Podem indicar fraude, limites muito apertados ou fricção no pagamento digital, o que piora a experiência.
+**4. A aprovação de Pix é uma constante, não um sinal.** A taxa de aprovação é 90,0% em todo trimestre, para PF e PJ e em todo quartil de valor — característica do gerador de dados sintéticos (Radar 2). Não há evidência de fraude nem de fricção; o filtro `Aprovado = 1` é usado apenas para medir volume efetivo.
 
-**5. Investimento como âncora de retenção pouco usada.** A Reservinha é o produto mais popular (37% dos registros). Quem investe tende a ter maior valor ao longo do tempo e menor churn. Dá para usar isso como diferencial frente à LuminaPay, que não tem investimento.
+**5. O lock-in de investimento ainda não existe — e é a oportunidade.** A Reservinha é o produto mais popular (37% dos registros), mas o teste na base mostra que hoje investir não retém (95,2% vs 95,6% de retenção no cartão) nem aumenta gasto. O laço saldo → limite → uso proposto pela solução é justamente o mecanismo que falta — um diferencial frente à LuminaPay, que não tem investimento.
 
 ---
 
 ## 18. Próximos passos analíticos
 
-1. **Mapa dos clientes em fuga:** cruzar a queda de transações de cartão com o aumento de Pix por cliente, para achar quem está migrando e qual o perfil.
-2. **Segmento em risco:** idade e renda dos clientes com maior queda de uso de cartão em 2025.
-3. **Fidelidade via investimento:** quem tem saldo investido gasta mais no cartão? Reduziu menos o uso em 2025?
-4. **Cartões inativos:** quais segmentos e produtos concentram mais cartões sem uso?
-5. **Benchmark interno:** o ticket médio do Priceless está acima ou abaixo do setor? Qual indústria está perdendo mais transações?
+1. **Segmento em risco:** idade e renda dos clientes com maior queda de uso de cartão em 2025.
+2. **Cartões inativos:** quais segmentos e produtos concentram mais cartões sem uso?
+3. **Benchmark interno:** o ticket médio do Priceless está acima ou abaixo do setor? Qual indústria está perdendo mais transações?
+
+*Já executados no notebook: o cruzamento cliente a cliente cartão × Pix (a correlação individual é ~0 — a migração é uniforme na base, não rastreável por cliente) e o teste de fidelidade via investimento (sem diferença de retenção ou gasto).*
 
 ---
 

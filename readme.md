@@ -17,7 +17,7 @@
 
 ## O desafio
 
-O Priceless Bank caiu de **33% para 19% de participação de mercado** em quatro trimestres de 2025. Olhando os dados, o motivo fica claro: o dinheiro que passava no cartão começou a passar pelo Pix. O volume de cartão caiu 75% e o Pix para empresas ficou 3,4 vezes maior que todo o cartão. Em paralelo, a base esfriou (cartões parados, vencidos e resgates de investimento em alta).
+O Priceless Bank caiu de **33% para 19% de participação de mercado** em quatro trimestres de 2025. Olhando os dados, o motivo fica claro: o dinheiro que passava no cartão começou a passar pelo Pix. O volume de cartão caiu 50% ao longo de 2025 e o Pix para empresas (aprovado) terminou o ano 3 vezes maior que todo o cartão. Em paralelo, a base esfriou (cartões parados, vencidos e resgates de investimento em alta).
 
 Nossa tarefa foi achar a causa nos dados e propor um caminho de solução com um plano de ação.
 
