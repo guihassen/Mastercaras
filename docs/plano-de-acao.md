@@ -74,6 +74,8 @@ A ideia é ligar o motor sem depender de produto novo, usando o que o cliente j�
 
 Primeiro, o tamanho da perda. A virada do cartão para o Pix custa cerca de **R\$ 1,51 milhão por ano**, somando duas coisas: a queda do intercâmbio de cartão (R\$ 216 mil) e, principalmente, o intercâmbio que evapora no Pix PJ (R$ 1,29 milhão — os R\$ 17,9 milhões de Pix PJ aprovados em 2025Q4, anualizados, à taxa de crédito de 1,8%).
 
+> *Transparência de baseline: a parcela do cartão usa 2024Q4 (pico de engajamento em quantidade) como referência. Com o baseline mais conservador de 2023Q4, essa parcela cai de R\$ 216 mil para cerca de R\$ 89 mil por ano.*
+
 Agora a recuperação. Como a plataforma é gratuita, a receita vem de três fontes que não cobram nada do cliente: intercâmbio recuperado, spread sobre o saldo aplicado e juros do parcelado. Montamos três cenários, do mais cauteloso ao mais otimista.
 
 | Fonte de receita nova por ano | Pessimista | Neutro | Otimista |
@@ -132,7 +134,7 @@ flowchart LR
 |---|---|---|---|---|
 | Market share (valor) | 19% | 21% | 27% | 30% |
 | Adoção de carteira digital | cerca de 14% | 40% | 60% | acima de 70% |
-| Intercâmbio por trimestre | cerca de R$ 100 mil | R$ 200 mil | R$ 320 mil | R$ 358 mil ou mais |
+| Intercâmbio por trimestre | cerca de R$ 95 mil | R$ 190 mil | R$ 290 mil | R$ 322 mil ou mais |
 | Clientes de 18 a 29 anos | 5,9% | 7% | 13% | 18% |
 | NPS | a medir | 50 | 65 | 72 |
 
@@ -143,8 +145,8 @@ flowchart LR
 | Camada | O que acompanhar | Ponto de partida (2025Q4) | Meta |
 |---|---|---|---|
 | Farol | Market share em valor | 19% | 30% |
-| Motor | Adoção de carteira digital | cerca de 14% | acima de 70% |
-| Motor | Intercâmbio por trimestre | cerca de R$ 100 mil | R$ 358 mil ou mais |
+| Motor | Adoção de carteira digital | cerca de 14% (nível estático no dataset — meta de produto) | acima de 70% |
+| Motor | Intercâmbio por trimestre | cerca de R$ 95 mil | R$ 322 mil ou mais |
 | Motor | Saldo aplicado (Saldo Vivo) | em fuga | crescente e estável |
 | Cartão Digital | Cartões ativos por cliente | base atual | mais 40% |
 | Pix no Crédito | Volume de Pix PJ convertido | quase zero | a maior parte |

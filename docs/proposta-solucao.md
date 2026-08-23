@@ -10,9 +10,9 @@ O Priceless Bank caiu de **33% para 19% de participação de mercado** em apenas
 
 Três fatos resumem a situação:
 
-- O volume de cartão caiu **75%** (de R\$ 23,4 milhões em 2024Q4 para R$ 5,9 milhões em 2025Q4).
-- O Pix para empresas (Pix PJ) ficou **3,4 vezes maior** que todo o volume de cartão em 2025Q4.
-- A base esfriou: 469 cartões nunca usados, 1.018 vencidos sem renovação, 87 clientes inativos e um recorde de resgates de investimento (R$ 1.632 mil em 2025Q4).
+- O volume de cartão caiu **50% ao longo de 2025** (de R\$ 11,8 milhões em Q1 para R\$ 5,9 milhões em Q4 — contra o pico de 2024Q4 a queda em valor chega a 75%, mas o ticket de 2024 é um artefato dos dados; em quantidade, −36%).
+- O Pix para empresas (Pix PJ aprovado) ficou **3,0 vezes maior** que todo o volume de cartão em 2025Q4.
+- A base esfriou: 469 cartões nunca usados, 1.018 vencidos sem renovação, 87 clientes sem atividade em 2025 (85 deles sem qualquer atividade histórica) e um recorde de resgates de investimento (R$ 1.632 mil em 2025Q4).
 
 O Pix venceu no balcão porque é grátis para o lojista e instantâneo. O problema é que, para o banco, cada pagamento que vira Pix some duas vezes: some a receita de intercâmbio e some o dado de consumo.
 
@@ -123,6 +123,8 @@ O Pix é doméstico, em tempo real e não tem volta. Por causa disso, existem qu
 
 A maior oportunidade está parada na mesa. Só **14% das transações** usam carteira digital hoje, então sobram 86% de espaço para crescer. E 30% do valor do cartão já roda online, que é a base segura para construir em cima.
 
+> *Transparência: os campos de canal do dataset são estáticos ao longo do tempo (ver "Radar 2 — sinal × constante" no notebook). Os números desta seção são a fotografia atual da base; a tese do Cartão Digital é prospectiva — ancorada no desenho estrutural do Pix (doméstico, à vista, irreversível) — e o dimensionamento fino de cada alavanca exige piloto.*
+
 ![Foto digital do cartão](../notebooks/graficos/B1_foto_digital.png)
 *Só 14% do uso é em carteira digital e 30% do valor já é online, o nosso piso seguro contra o Pix.*
 
@@ -152,6 +154,8 @@ O motor de tudo isso é o cashback escalonado por canal, mais alto no online, no
 ## 6. Produto 2: Pix no Crédito melhorado
 
 O LuminaPay, que mais cresceu em 2025, tem "Pix no crédito" como diferencial. Foi um dos principais motivos da nossa perda. A nossa versão não é só copiar e deixar o cliente parcelar um Pix. É um produto que transforma cada Pix em comércio numa porta de entrada para fidelidade e investimento.
+
+Um ponto de desenho essencial: **o Pix é a interface, mas a liquidação acontece como transação de crédito nos trilhos do cartão**. É isso que devolve ao banco o intercâmbio (os 1,8% do modelo de receita) e o dado de consumo — em vez de acelerar o trilho que os drena. O cliente ganha a experiência do Pix; o banco e o ecossistema do cartão ganham o fluxo de volta.
 
 ### O tamanho da oportunidade
 
@@ -234,9 +238,9 @@ A frase que resume a marca: "os outros bancos ganham quando você gasta demais o
 
 | Indicador | Ponto de partida (2025Q4) | Meta |
 |---|---|---|
-| Adoção de carteira digital | cerca de 14% | acima de 60% |
+| Adoção de carteira digital | cerca de 14% (nível atual; campo estático no dataset) | acima de 70% |
 | Fluxo do dia a dia dentro do Priceless | vaza como Pix cego | a maior parte dos Pix |
-| Intercâmbio recuperado | cerca de R$ 100 mil por trimestre | rumo aos R$ 358 mil de oportunidade |
+| Intercâmbio recuperado | cerca de R$ 95 mil por trimestre | rumo aos R$ 322 mil de oportunidade (Pix PJ aprovado) |
 | Saldo aplicado (Saldo Vivo) | em fuga, com resgate recorde | todo o saldo virando aplicação |
 
 Os números completos da recuperação de receita, com três cenários, estão no [`plano-de-acao.md`](plano-de-acao.md).
